@@ -54,8 +54,12 @@
     "prettier": "2.5.1"
   },
   "lint-staged": {
-    "*.+(js|jsx)": "eslint --fix",
-    "*.+(json|css|md)": "prettier --write"
+    "*.{js,jsx,ts,tsx,md,html,css}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "husky": {
     "hooks": {
