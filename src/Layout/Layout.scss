@@ -1,0 +1,19 @@
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98px;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: #28bf74;
+  border: 2px solid #122bce;
+}
+
+#footer {
+  margin-top: 1rem;
+}
+
+main {
+  //height: calc(100vh - 5rem);
+}

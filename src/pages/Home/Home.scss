@@ -1,10 +1,62 @@
+$base-margin-divs: 5rem 3rem 0;
+
 .bgImage {
+  display: flex;
   background-image: url("../../../public/library.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-clip: border-box;
   background-position: left 10% bottom 20%;
   width: 100vw;
-  height: 50vh;
-  text-align: center;
+  height: 60vh;
+  justify-items: center;
+  align-items: center;
+
+  h1 {
+    flex-basis: 50%;
+    font-family: Arial, "Helvetica", sans-serif;
+    margin: auto;
+    line-break: strict;
+    color: white;
+    font-size: 2.55rem;
+    text-align: center;
+  }
 }
+
+.infoSection {
+  margin: $base-margin-divs;
+
+  svg {
+    justify-items: center;
+  }
+
+  h3 {
+    text-shadow: 1.8px 2.3px #998585;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .items {
+    background: #e8f8e8;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #secondItem {
+    background-color: #058405;
+    color: #e8f8e8;
+  }
+
+}
+
+.independence {
+  margin: $base-margin-divs;
+
+  h5 {
+    text-align: center;
+  }
+}
+
