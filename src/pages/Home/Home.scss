@@ -46,7 +46,7 @@ $base-margin-divs: 5rem 3rem 0;
   }
 
   #secondItem {
-    background-color: #058405;
+    background-color: #4ac14a;
     color: #e8f8e8;
   }
 
@@ -55,8 +55,29 @@ $base-margin-divs: 5rem 3rem 0;
 .independence {
   margin: $base-margin-divs;
 
+  #buttonSection {
+    background-color: lavenderblush;
+  }
+
   h5 {
     text-align: center;
+  }
+
+  h6 {
+    font-size: 1.6rem;
+    font-family: "Montserrat", sans-serif;
+    color: #ff1b68;
+  }
+}
+
+.linkButtons {
+  display: flex;
+  justify-content: space-evenly;
+  flex-basis: 50%;
+
+  :hover {
+    background-color: white;
+    color: #0d6efd;
   }
 }
 

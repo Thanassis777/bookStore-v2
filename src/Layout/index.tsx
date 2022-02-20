@@ -1,7 +1,7 @@
 import React from 'react';
 import './Layout.scss';
 
-const Layout = ({children}) => {
+const Layout = ({children}: any) => {
   return (
     <>
       <div className="box">

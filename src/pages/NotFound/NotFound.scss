@@ -1,0 +1,13 @@
+$base-margin-divs: 5rem 3rem 0;
+
+.errorImage {
+  display: flex;
+  background-image: url("../../../public/errorPage.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-clip: border-box;
+  background-position: left 50% bottom 50%;
+  height: 80vh;
+  justify-content: center;
+  align-items: flex-end;
+}

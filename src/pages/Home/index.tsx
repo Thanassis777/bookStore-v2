@@ -1,11 +1,14 @@
 import React from 'react';
 import './Home.scss';
-import {Col, Container, Row} from 'react-bootstrap';
+import {Button, Col, Container, Row} from 'react-bootstrap';
 import {BsBookFill, BsKey, BsBasket} from 'react-icons/bs';
+import {useNavigate} from 'react-router';
 
 const ICON_SIZE = '2.5rem';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <Container fluid>
       <Row>
@@ -52,6 +55,22 @@ const Home = () => {
             days a year.
           </p>
         </Col>
+      </Row>
+      <Row id="buttonSection" className="justify-content-center independence">
+        <Col xs="auto">
+          <h6>
+            You can add a new book in our library or search what you want to find. Please choose an
+            option below:
+          </h6>
+        </Col>
+        <p className="linkButtons">
+          <Button onClick={() => navigate('/add')} size="lg">
+            Αdd
+          </Button>
+          <Button onClick={() => navigate('/search')} size="lg">
+            Search
+          </Button>
+        </p>
       </Row>
     </Container>
   );
