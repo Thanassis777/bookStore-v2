@@ -1,4 +1,5 @@
 export const RATING = 'rating';
+export const DATE = 'date';
 
 export interface FormModel {
     label: string;
@@ -6,16 +7,18 @@ export interface FormModel {
     name: string;
     type?: string;
     as?: any;
+    format?: string;
 }
 
 export interface BookModel {
+    // ** category to be added **
     title: string;
     subtitle: string;
     isbn: string;
     pages: string;
     author: string;
     publisher: string;
-    published: string;
+    published: Date;
     rating: number;
     description: string;
 }
@@ -27,7 +30,7 @@ const initialBookValues: BookModel = {
     pages: '',
     author: '',
     publisher: '',
-    published: '',
+    published: new Date(),
     rating: 3,
     description: '',
 };
@@ -67,6 +70,7 @@ export const initialFormState: FormModel[] = [
         label: 'Published',
         id: 'published',
         name: 'published',
+        type: DATE,
     },
     {
         label: 'Rating',
