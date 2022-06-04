@@ -1,5 +1,13 @@
-export const RATING = 'rating';
-export const DATE = 'date';
+import {
+    CodeListType,
+    initialCodeList,
+} from '../../shared/model/applicationTypes';
+
+export enum Types {
+    RATING = 'rating',
+    DATE = 'date',
+    DROPDOWN = 'dropdown',
+}
 
 export interface FormModel {
     label: string;
@@ -7,11 +15,10 @@ export interface FormModel {
     name: string;
     type?: string;
     as?: any;
-    format?: string;
+    options?: CodeListType[];
 }
 
 export interface BookModel {
-    // ** category to be added **
     title: string;
     subtitle: string;
     isbn: string;
@@ -21,9 +28,10 @@ export interface BookModel {
     published: Date;
     rating: number;
     description: string;
+    category: CodeListType[];
 }
 
-const initialBookValues: BookModel = {
+const initialBookState: BookModel = {
     title: '',
     subtitle: '',
     isbn: '',
@@ -31,11 +39,12 @@ const initialBookValues: BookModel = {
     author: '',
     publisher: '',
     published: new Date(),
-    rating: 3,
+    rating: 0,
     description: '',
+    category: [{ ...initialCodeList }],
 };
 
-export const initialFormState: FormModel[] = [
+export const getInitialFormModel = (categoryOptions: any): FormModel[] => [
     {
         label: 'Title',
         id: 'title',
@@ -70,13 +79,14 @@ export const initialFormState: FormModel[] = [
         label: 'Published',
         id: 'published',
         name: 'published',
-        type: DATE,
+        type: Types.DATE,
     },
     {
-        label: 'Rating',
-        id: 'rating',
-        name: 'rating',
-        type: RATING,
+        label: 'Category',
+        id: 'category',
+        name: 'category',
+        type: Types.DROPDOWN,
+        options: categoryOptions,
     },
     {
         label: 'Description',
@@ -84,6 +94,12 @@ export const initialFormState: FormModel[] = [
         name: 'description',
         as: 'textarea',
     },
+    {
+        label: 'Rating',
+        id: 'rating',
+        name: 'rating',
+        type: Types.RATING,
+    },
 ];
 
-export default initialBookValues;
+export default initialBookState;

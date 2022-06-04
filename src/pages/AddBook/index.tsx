@@ -1,16 +1,12 @@
 import React from 'react';
-import TextInput from '../../components/TextInput';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import initialBookValues, {
-    BookModel,
-    initialFormState,
-    RATING,
-} from './formModel';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import initialBookState, { BookModel, getInitialFormModel } from './formModel';
 import { Form, Formik } from 'formik';
-import StarsRating from '../../components/StarsRating/StarsRating';
-import './AddBook.scss';
+// import './AddBook.scss';
 import { useNavigate } from 'react-router';
 import { postService } from '../../api';
+import { getFormComponent } from '../../utilities/utilities';
+import FormWrapper from '../../Layouts/FormWrapper';
 
 const AddBook = () => {
     const navigate = useNavigate();
@@ -19,58 +15,59 @@ const AddBook = () => {
         return postService('/books', values).then(() => navigate('/'));
     };
 
-    console.log(initialBookValues);
+    const options = [
+        { code: '01', label: 'Action' },
+        { code: '02', label: 'Science' },
+        { code: '03', label: 'Fantasy' },
+        { code: '04', label: 'Mystery' },
+        { code: '05', label: 'Thriller' },
+    ];
+
+    const bookValuesWithOptions = getInitialFormModel(options);
 
     return (
-        <Container className="container">
-            <Formik<BookModel>
-                initialValues={initialBookValues}
-                validate={(values) => {}}
-                onSubmit={submitBook}
-            >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                    /* and other goodies */
-                }) => (
-                    <Form onSubmit={handleSubmit}>
-                        <Row>
-                            <h1 style={{ textAlign: 'center' }}>
-                                Add a new Book
-                            </h1>
-                        </Row>
-                        <Row className="align-items-center">
-                            {initialFormState.map((item, idx: number) => (
-                                <React.Fragment key={idx}>
-                                    <Col xs={6}>
-                                        {item?.type !== RATING ? (
-                                            <TextInput {...item} />
-                                        ) : (
-                                            <StarsRating {...item} />
-                                        )}
+        <FormWrapper title="Add a new Book">
+            <Container>
+                <Formik<BookModel>
+                    initialValues={initialBookState}
+                    validate={(values) => {
+                        console.log(values);
+                    }}
+                    onSubmit={submitBook}
+                >
+                    {({ handleSubmit }) => (
+                        <Form onSubmit={handleSubmit}>
+                            <Container>
+                                <Row className="align-items-center">
+                                    {bookValuesWithOptions.map(
+                                        (item, idx: number) => (
+                                            <React.Fragment key={idx}>
+                                                <Col xs={6}>
+                                                    {getFormComponent(item)}
+                                                </Col>
+                                            </React.Fragment>
+                                        )
+                                    )}
+                                </Row>
+                                <Row>
+                                    <Col xs={8}>
+                                        <Button
+                                            variant="secondary"
+                                            onClick={() => navigate('/')}
+                                        >
+                                            Cancel
+                                        </Button>
                                     </Col>
-                                </React.Fragment>
-                            ))}
-                        </Row>
-                        <Row className="justify-content-end">
-                            <Col>
-                                <Button onClick={() => navigate('/')}>
-                                    Cancel
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button type="submit">Submit</Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                )}
-            </Formik>
-        </Container>
+                                    <Col xs={4}>
+                                        <Button type="submit">Submit</Button>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Form>
+                    )}
+                </Formik>
+            </Container>
+        </FormWrapper>
     );
 };
 

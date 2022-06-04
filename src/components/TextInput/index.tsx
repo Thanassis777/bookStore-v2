@@ -11,7 +11,6 @@ const TextInput = (props: TextInputProps) => {
     const [field] = useField(props.name);
 
     const customStyle = {
-        maxWidth: '28.5rem',
         height: props?.as === 'textarea' && 120,
         backgroundColor: 'rgb(245 247 249)',
     };
