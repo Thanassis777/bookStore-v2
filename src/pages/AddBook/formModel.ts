@@ -1,22 +1,9 @@
 import {
     CodeListType,
     initialCodeList,
-} from '../../shared/model/applicationTypes';
-
-export enum Types {
-    RATING = 'rating',
-    DATE = 'date',
-    DROPDOWN = 'dropdown',
-}
-
-export interface FormModel {
-    label: string;
-    id: string;
-    name: string;
-    type?: string;
-    as?: any;
-    options?: CodeListType[];
-}
+    Types,
+} from '../../shared/models/applicationTypes';
+import { ComponentProps } from '../../shared/models/componentProps';
 
 export interface BookModel {
     title: string;
@@ -25,7 +12,7 @@ export interface BookModel {
     pages: string;
     author: string;
     publisher: string;
-    published: Date;
+    published: Date | string;
     rating: number;
     description: string;
     category: CodeListType[];
@@ -38,13 +25,15 @@ const initialBookState: BookModel = {
     pages: '',
     author: '',
     publisher: '',
-    published: new Date(),
-    rating: 0,
+    published: '',
+    rating: -1,
     description: '',
-    category: [{ ...initialCodeList }],
+    category: [],
 };
 
-export const getInitialFormModel = (categoryOptions: any): FormModel[] => [
+export const getInitialFormModel = (
+    categoryOptions: CodeListType[]
+): ComponentProps[] => [
     {
         label: 'Title',
         id: 'title',
@@ -59,11 +48,13 @@ export const getInitialFormModel = (categoryOptions: any): FormModel[] => [
         label: 'ISBN',
         id: 'isbn',
         name: 'isbn',
+        type: 'number',
     },
     {
         label: 'Pages',
         id: 'pages',
         name: 'pages',
+        type: 'number',
     },
     {
         label: 'Author',

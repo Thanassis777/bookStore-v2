@@ -1,3 +1,9 @@
+export enum Types {
+    RATING = 'rating',
+    DATE = 'date',
+    DROPDOWN = 'dropdown',
+}
+
 export interface CodeListType {
     code: string;
     label: string;

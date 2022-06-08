@@ -1,6 +1,6 @@
 import React from 'react';
 import './Search.scss';
-import { Container } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import IconText from '../../components/IconText';
 import { getService } from '../../api';
 
@@ -12,14 +12,25 @@ const Search = () => {
     };
 
     return (
-        <Container>
-            <div className="bookCover">
-                <div>FREE AND DISCOUNTED BESTSELLERS</div>
-            </div>
-            <div className="searchBox">
-                <IconText handleClick={handleClick} />
-            </div>
-        </Container>
+        <main style={{ overflow: 'hidden' }}>
+            <Row className="bookCover">
+                <Col>FREE AND DISCOUNTED BESTSELLERS</Col>
+            </Row>
+            <Row className="justify-content-center align-items-center searchBox">
+                <Col>
+                    <IconText handleClick={handleClick} />
+                </Col>
+            </Row>
+        </main>
+
+        // <section>
+        //     <div className="bookCover">
+        //         <div>FREE AND DISCOUNTED BESTSELLERS</div>
+        //     </div>
+        //     <div className="searchBox">
+        //         <IconText handleClick={handleClick} />
+        //     </div>
+        // </section>
     );
 };
 

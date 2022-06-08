@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 
-const Header = ({ title }) => {
-    return (
-        <Row>
-            <h1 style={{ textAlign: 'center' }}>{title}</h1>
-        </Row>
-    );
+type HeaderProps = {
+    title: string;
 };
+
+const Header = React.memo(({ title }: HeaderProps) => {
+    return <h1 style={{ textAlign: 'center' }}>{title}</h1>;
+});
 
 export default Header;

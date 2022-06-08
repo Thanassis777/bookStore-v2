@@ -1,16 +1,20 @@
 import React from 'react';
 import './Layout.scss';
-import { Col, Container, Row } from 'react-bootstrap';
+import Header from './Header';
 
-const Layout = ({ children }: any) => {
+type LayoutProps = {
+    children: React.ReactNode;
+};
+
+const Layout = ({ children }: LayoutProps) => {
     return (
-        <>
+        <main>
             <div className="box">
-                <h1>BookStore</h1>
+                <Header title="BookStore" />
             </div>
             {children}
             <div id="footer" className="box" />
-        </>
+        </main>
     );
 };
 

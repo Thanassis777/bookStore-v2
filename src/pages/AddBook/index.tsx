@@ -1,72 +1,65 @@
-import React from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import initialBookState, { BookModel, getInitialFormModel } from './formModel';
 import { Form, Formik } from 'formik';
-// import './AddBook.scss';
 import { useNavigate } from 'react-router';
-import { postService } from '../../api';
-import { getFormComponent } from '../../utilities/utilities';
+import { getService, postService } from '../../api';
+import { getFormComponent } from '../../shared/utilities';
 import FormWrapper from '../../Layouts/FormWrapper';
+import FooterButtons from './FooterButtons';
+import { formSchema } from './validationSchema';
 
 const AddBook = () => {
     const navigate = useNavigate();
+    const [options, setOptions] = useState([]);
 
     const submitBook = (values: BookModel) => {
-        return postService('/books', values).then(() => navigate('/'));
+        return postService('/books', values).then(() => {
+            navigate('/');
+        });
     };
 
-    const options = [
-        { code: '01', label: 'Action' },
-        { code: '02', label: 'Science' },
-        { code: '03', label: 'Fantasy' },
-        { code: '04', label: 'Mystery' },
-        { code: '05', label: 'Thriller' },
-    ];
+    useEffect(() => {
+        getService('/categories').then((response) => setOptions(response.data));
+    }, []);
 
-    const bookValuesWithOptions = getInitialFormModel(options);
+    const handleCancelBtn = useCallback(() => navigate('/'), []);
 
     return (
         <FormWrapper title="Add a new Book">
-            <Container>
-                <Formik<BookModel>
-                    initialValues={initialBookState}
-                    validate={(values) => {
-                        console.log(values);
-                    }}
-                    onSubmit={submitBook}
-                >
-                    {({ handleSubmit }) => (
+            <Formik<BookModel>
+                initialValues={initialBookState}
+                validationSchema={formSchema}
+                onSubmit={submitBook}
+            >
+                {({ handleSubmit, values, errors }) => {
+                    console.log(values);
+                    console.log('-->', errors);
+                    const bookValuesWithOptions = getInitialFormModel(options);
+
+                    return (
                         <Form onSubmit={handleSubmit}>
-                            <Container>
-                                <Row className="align-items-center">
+                            <Row className="align-items-center">
+                                <Row>
                                     {bookValuesWithOptions.map(
                                         (item, idx: number) => (
-                                            <React.Fragment key={idx}>
-                                                <Col xs={6}>
-                                                    {getFormComponent(item)}
-                                                </Col>
-                                            </React.Fragment>
+                                            <Col xs={6} key={idx}>
+                                                {getFormComponent(item)}
+                                            </Col>
                                         )
                                     )}
                                 </Row>
-                                <Row>
-                                    <Col xs={8}>
-                                        <Button
-                                            variant="secondary"
-                                            onClick={() => navigate('/')}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </Col>
-                                    <Col xs={4}>
-                                        <Button type="submit">Submit</Button>
-                                    </Col>
-                                </Row>
-                            </Container>
+                            </Row>
+                            <Row className="mt-3 justify-content-between">
+                                <FooterButtons
+                                    handleCancel={handleCancelBtn}
+                                    handleSubmit={handleSubmit}
+                                />
+                            </Row>
                         </Form>
-                    )}
-                </Formik>
-            </Container>
+                    );
+                }}
+            </Formik>
         </FormWrapper>
     );
 };

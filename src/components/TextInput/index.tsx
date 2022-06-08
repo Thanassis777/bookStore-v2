@@ -1,14 +1,16 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { useField } from 'formik';
-import { FormModel } from '../../pages/AddBook/formModel';
+import { ErrorMessage, useField } from 'formik';
+import { ComponentProps } from '../../shared/models/componentProps';
+import './TextInput.scss';
+import FieldErrorMessage from '../FieldErrorMessage';
 
-interface TextInputProps extends FormModel {
+interface TextInputProps extends ComponentProps {
     placeholder?: string;
 }
 
 const TextInput = (props: TextInputProps) => {
-    const [field] = useField(props.name);
+    const [field, meta] = useField(props.name);
 
     const customStyle = {
         height: props?.as === 'textarea' && 120,
@@ -16,15 +18,20 @@ const TextInput = (props: TextInputProps) => {
     };
 
     return (
-        <Form.Floating className="mt-3">
-            <Form.Control
-                {...field}
-                {...props}
-                style={customStyle}
-                placeholder={props.label}
-            />
-            <label htmlFor={props.id}>{props.label}</label>
-        </Form.Floating>
+        <>
+            <Form.Floating className="mt-3">
+                <Form.Control
+                    style={customStyle}
+                    isInvalid={meta.touched && Boolean(meta.error)}
+                    isValid={meta.touched && !Boolean(meta.error)}
+                    placeholder={props.label}
+                    {...field}
+                    {...props}
+                />
+                <label htmlFor={props.id}>{props.label}</label>
+            </Form.Floating>
+            <FieldErrorMessage name={field.name} />
+        </>
     );
 };
 
