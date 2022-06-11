@@ -33,8 +33,8 @@ const AddBook = () => {
                 onSubmit={submitBook}
             >
                 {({ handleSubmit, values, errors }) => {
-                    console.log(values);
-                    console.log('-->', errors);
+                    // console.log(values);
+                    // console.log('-->', errors);
                     const bookValuesWithOptions = getInitialFormModel(options);
 
                     return (

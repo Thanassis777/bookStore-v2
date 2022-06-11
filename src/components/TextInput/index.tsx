@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { ErrorMessage, useField } from 'formik';
-import { ComponentProps } from '../../shared/models/componentProps';
+import { useField } from 'formik';
+import { ComponentProps } from '../../shared/models/ComponentProps';
 import './TextInput.scss';
 import FieldErrorMessage from '../FieldErrorMessage';
 

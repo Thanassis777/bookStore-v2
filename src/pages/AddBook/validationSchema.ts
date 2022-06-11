@@ -1,46 +1,50 @@
 import * as Yup from 'yup';
-
-const MANDATORY_FIELD = 'Field is mandatory';
+import { FieldErrorMessages } from '../../shared/models/FieldErrorMessages';
 
 export const formSchema = Yup.object().shape({
     isbn: Yup.number()
-        .required(MANDATORY_FIELD)
+        .required(FieldErrorMessages.MANDATORY_FIELD)
         .positive()
         .integer()
         .test(
             'maxDigits',
-            'ISBN must have exactly 10 digits',
+            FieldErrorMessages.ISBN,
             (number) => String(number).length === 10
         ),
     title: Yup.string()
-        .required(MANDATORY_FIELD)
-        .min(50, 'Title should have minimum 50 characters')
-        .max(120, 'Title should have maximum 120 characters'),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .min(50, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
+        .max(120, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     subtitle: Yup.string()
-        .required(MANDATORY_FIELD)
-        .min(2, 'Subtitle should have minimum 2 characters')
-        .max(50, 'Subtitle should have maximum 50 characters'),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .min(2, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
+        .max(50, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     pages: Yup.number()
-        .required(MANDATORY_FIELD)
+        .required(FieldErrorMessages.MANDATORY_FIELD)
         .positive()
         .integer()
-        .max(9999, 'Pages should be 9999 maximum'),
+        .max(9999, FieldErrorMessages.PAGE_LIMIT),
     publisher: Yup.string()
-        .required(MANDATORY_FIELD)
-        .min(5, 'Publisher should have minimum 5 characters')
-        .max(60, 'Publisher should have maximum 60 characters'),
-    published: Yup.date().required(MANDATORY_FIELD),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .min(5, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
+        .max(60, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
+    published: Yup.date().required(FieldErrorMessages.MANDATORY_FIELD),
     rating: Yup.number()
-        .required(MANDATORY_FIELD)
-        .positive('Please select a rating star'),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .positive(FieldErrorMessages.RATING_EMPTY),
     description: Yup.string()
-        .required(MANDATORY_FIELD)
-        .max(512, 'Title should have maximum 512 characters'),
-    category: Yup.array().test({
-        message: MANDATORY_FIELD,
-        test: (arr) => arr.length !== 0,
-    }),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .max(512, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
+    category: Yup.array()
+        .test({
+            message: FieldErrorMessages.MANDATORY_FIELD,
+            test: (arr) => arr.length !== 0,
+        })
+        .test({
+            message: FieldErrorMessages.ARRAY_EXCEED_LENGTH,
+            test: (arr) => arr.length < 5,
+        }),
     author: Yup.string()
-        .required(MANDATORY_FIELD)
-        .min(6, 'Field is too short - should be 6 chars minimum'),
+        .required(FieldErrorMessages.MANDATORY_FIELD)
+        .min(6, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min),
 });

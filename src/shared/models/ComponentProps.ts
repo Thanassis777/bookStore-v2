@@ -1,4 +1,4 @@
-import { CodeListType } from './applicationTypes';
+import { CodeListType } from './ApplicationTypes';
 import * as React from 'react';
 
 export interface ComponentProps {

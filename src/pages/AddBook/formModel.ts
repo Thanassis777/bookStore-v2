@@ -2,8 +2,8 @@ import {
     CodeListType,
     initialCodeList,
     Types,
-} from '../../shared/models/applicationTypes';
-import { ComponentProps } from '../../shared/models/componentProps';
+} from '../../shared/models/ApplicationTypes';
+import { ComponentProps } from '../../shared/models/ComponentProps';
 
 export interface BookModel {
     title: string;

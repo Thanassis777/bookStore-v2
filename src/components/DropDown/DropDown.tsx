@@ -1,19 +1,34 @@
 import React from 'react';
 import Select from 'react-select';
 import { useField } from 'formik';
-import { ReactSelectOptions } from '../../shared/models/applicationTypes';
+import { ReactSelectOptions } from '../../shared/models/ApplicationTypes';
 import Form from 'react-bootstrap/Form';
-import { ComponentProps } from '../../shared/models/componentProps';
+import { ComponentProps } from '../../shared/models/ComponentProps';
 import FieldErrorMessage from '../FieldErrorMessage';
+import { setBorderColor, setBoxShadow } from './utility';
 
 const DropDown = (props: ComponentProps) => {
-    const [field, , helpers] = useField(props.name);
+    const [field, meta, helpers] = useField(props.name);
+
+    const isTouched = meta.touched;
+    const hasError = Boolean(meta.error);
+    const arrayLength = field.value.length;
 
     const customStyles = {
-        control: (base: any) => ({
+        control: (base: any, state: any) => ({
             ...base,
             backgroundColor: 'rgb(245 247 249)',
             height: 56,
+            borderColor: setBorderColor(isTouched, hasError, arrayLength),
+            boxShadow: setBoxShadow(
+                state.isFocused,
+                hasError,
+                arrayLength,
+                isTouched
+            ),
+            '&:hover': {
+                borderColor: 'none',
+            },
         }),
     };
 
@@ -23,17 +38,18 @@ const DropDown = (props: ComponentProps) => {
     }));
 
     const handeChange = (selectedOption: ReactSelectOptions[]) => {
+        helpers.setTouched(true);
         helpers.setValue(selectedOption.map((opt) => opt.value));
     };
 
     return (
-        <>
+        <div>
             <Form.Floating className="mt-3">
                 <Select
-                    className="basic-single"
                     classNamePrefix="select"
                     isClearable
                     isMulti
+                    onBlur={() => helpers.setTouched(true)}
                     onChange={handeChange}
                     styles={customStyles}
                     placeholder={props.label}
@@ -41,7 +57,7 @@ const DropDown = (props: ComponentProps) => {
                 />
             </Form.Floating>
             <FieldErrorMessage name={field.name} />
-        </>
+        </div>
     );
 };
 
