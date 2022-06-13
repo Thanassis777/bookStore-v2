@@ -2,6 +2,7 @@ export enum Types {
     RATING = 'rating',
     DATE = 'date',
     DROPDOWN = 'dropdown',
+    MULTI_VALUE = 'multi-value',
 }
 
 export interface CodeListType {

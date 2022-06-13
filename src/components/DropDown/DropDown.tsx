@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { ComponentProps } from '../../shared/models/ComponentProps';
 import FieldErrorMessage from '../FieldErrorMessage';
 import { setBorderColor, setBoxShadow } from './utility';
+import { Palette } from '../../shared/models/Palette';
 
 const DropDown = (props: ComponentProps) => {
     const [field, meta, helpers] = useField(props.name);
@@ -17,7 +18,7 @@ const DropDown = (props: ComponentProps) => {
     const customStyles = {
         control: (base: any, state: any) => ({
             ...base,
-            backgroundColor: 'rgb(245 247 249)',
+            backgroundColor: Palette.INPUT_BG_COLOR,
             height: 56,
             borderColor: setBorderColor(isTouched, hasError, arrayLength),
             boxShadow: setBoxShadow(

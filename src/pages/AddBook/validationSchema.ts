@@ -13,7 +13,7 @@ export const formSchema = Yup.object().shape({
         ),
     title: Yup.string()
         .required(FieldErrorMessages.MANDATORY_FIELD)
-        .min(50, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
+        .min(10, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
         .max(120, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     subtitle: Yup.string()
         .required(FieldErrorMessages.MANDATORY_FIELD)
@@ -44,7 +44,16 @@ export const formSchema = Yup.object().shape({
             message: FieldErrorMessages.ARRAY_EXCEED_LENGTH,
             test: (arr) => arr.length < 5,
         }),
-    author: Yup.string()
-        .required(FieldErrorMessages.MANDATORY_FIELD)
-        .min(6, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min),
+    author: Yup.array().test({
+        message: FieldErrorMessages.MANDATORY_FIELD,
+        test: (arr: string[]) => arr.length === 0,
+    }),
+    // Yup
+    // .string()
+    // .required(FieldErrorMessages.MANDATORY_FIELD)
+    // .min(6, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min),
 });
+
+export const validateAuthors = (value) => {
+    console.log(value);
+};

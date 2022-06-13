@@ -1,0 +1,30 @@
+.textInput {
+  background-color: rgb(245 247 249);
+}
+
+@mixin bordersButton {
+  border: none;
+  border-radius: 12px;
+  width: 50px;
+}
+
+.addButton {
+  background-color: #3ebc3b;
+  @include bordersButton;
+
+  &:hover, &:focus, &:disabled  {
+    background-color: #228520;
+  }
+}
+
+.deleteButton {
+  background-color: #dd7c57;
+  @include bordersButton;
+
+  &:hover, &:focus  {
+    background-color: #e25b28;
+  }
+}
+
+
+

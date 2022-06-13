@@ -4,13 +4,14 @@ import {
     Types,
 } from '../../shared/models/ApplicationTypes';
 import { ComponentProps } from '../../shared/models/ComponentProps';
+import { validateAuthors } from './validationSchema';
 
 export interface BookModel {
     title: string;
     subtitle: string;
     isbn: string;
     pages: string;
-    author: string;
+    author: string[];
     publisher: string;
     published: Date | string;
     rating: number;
@@ -23,7 +24,7 @@ const initialBookState: BookModel = {
     subtitle: '',
     isbn: '',
     pages: '',
-    author: '',
+    author: [''],
     publisher: '',
     published: '',
     rating: -1,
@@ -57,9 +58,11 @@ export const getInitialFormModel = (
         type: 'number',
     },
     {
-        label: 'Author',
-        id: 'author',
-        name: 'author',
+        label: 'Category',
+        id: 'category',
+        name: 'category',
+        type: Types.DROPDOWN,
+        options: categoryOptions,
     },
     {
         label: 'Publisher',
@@ -73,11 +76,11 @@ export const getInitialFormModel = (
         type: Types.DATE,
     },
     {
-        label: 'Category',
-        id: 'category',
-        name: 'category',
-        type: Types.DROPDOWN,
-        options: categoryOptions,
+        label: 'Author',
+        id: 'author',
+        name: 'author',
+        type: Types.MULTI_VALUE,
+        customValidation: validateAuthors,
     },
     {
         label: 'Description',

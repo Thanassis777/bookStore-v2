@@ -4,6 +4,7 @@ import DropDown from '../components/DropDown/DropDown';
 import TextInput from '../components/TextInput';
 import { Types } from './models/ApplicationTypes';
 import { ComponentProps } from './models/ComponentProps';
+import TextInputMultiValue from '../components/TextInputMultiValue';
 
 export const getFormComponent = (item: ComponentProps) => {
     let formComponent;
@@ -14,6 +15,9 @@ export const getFormComponent = (item: ComponentProps) => {
             break;
         case Types.DROPDOWN:
             formComponent = <DropDown {...item} />;
+            break;
+        case Types.MULTI_VALUE:
+            formComponent = <TextInputMultiValue {...item} />;
             break;
         default:
             formComponent = <TextInput {...item} />;

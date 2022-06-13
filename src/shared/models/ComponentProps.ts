@@ -8,4 +8,5 @@ export interface ComponentProps {
     type?: any;
     as?: React.ElementType | undefined;
     options?: CodeListType[];
+    customValidation?: Function;
 }

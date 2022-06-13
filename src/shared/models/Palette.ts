@@ -1,4 +1,6 @@
 export enum Palette {
+    INPUT_BG_COLOR = 'rgb(245 247 249)',
+
     NORMAL = '#cccccc',
     ERROR = '#dc3545',
     SUCCESS = '#198754',

@@ -4,6 +4,7 @@ import { useField } from 'formik';
 import { ComponentProps } from '../../shared/models/ComponentProps';
 import './TextInput.scss';
 import FieldErrorMessage from '../FieldErrorMessage';
+import { Palette } from '../../shared/models/Palette';
 
 interface TextInputProps extends ComponentProps {
     placeholder?: string;
@@ -14,7 +15,7 @@ const TextInput = (props: TextInputProps) => {
 
     const customStyle = {
         height: props?.as === 'textarea' && 120,
-        backgroundColor: 'rgb(245 247 249)',
+        backgroundColor: Palette.INPUT_BG_COLOR,
     };
 
     return (
