@@ -1,14 +1,22 @@
 import React from 'react';
-import { ErrorMessage } from 'formik';
+import {ErrorMessage} from 'formik';
 import './FieldErrorMessage.scss';
 
 type FieldErrorMessageProps = {
     name: string;
 };
 
-const FieldErrorMessage = ({ name }: FieldErrorMessageProps) => (
+type CustomErrorProps = {
+    message: string;
+};
+
+const CustomError = ({message}: CustomErrorProps) => <div className="errorMessage">{message}</div>;
+
+const FieldErrorMessage = ({name}: FieldErrorMessageProps) => (
     <ErrorMessage name={name}>
-        {(msg) => <div className="errorMessage">{msg}</div>}
+        {(msg) => {
+            return <CustomError message={msg} />;
+        }}
     </ErrorMessage>
 );
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { useField } from 'formik';
-import { ComponentProps } from '../../shared/models/ComponentProps';
+import {useField} from 'formik';
+import {ComponentProps} from '../../shared/models/ComponentProps';
 import './TextInput.scss';
 import FieldErrorMessage from '../FieldErrorMessage';
-import { Palette } from '../../shared/models/Palette';
+import {Palette} from '../../shared/models/Palette';
 
 interface TextInputProps extends ComponentProps {
     placeholder?: string;
@@ -22,6 +22,8 @@ const TextInput = (props: TextInputProps) => {
         <>
             <Form.Floating className="mt-3">
                 <Form.Control
+                    id={props.id}
+                    name={props.name + '_name'}
                     style={customStyle}
                     isInvalid={meta.touched && Boolean(meta.error)}
                     isValid={meta.touched && !Boolean(meta.error)}

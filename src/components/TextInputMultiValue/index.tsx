@@ -1,9 +1,10 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { useField } from 'formik';
-import { ComponentProps } from '../../shared/models/ComponentProps';
+import {Field, FieldArray, useField} from 'formik';
+import {ComponentProps} from '../../shared/models/ComponentProps';
 import './TextInputMultiValue.scss';
-import { Button } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+import {MultiValueString} from '../../pages/AddBook/formModel';
 import FieldErrorMessage from '../FieldErrorMessage';
 
 interface TextInputProps extends ComponentProps {
@@ -11,20 +12,13 @@ interface TextInputProps extends ComponentProps {
 }
 
 const TextInputMultiValue = (props: TextInputProps) => {
-    const [field, meta, helpers] = useField(props.name);
+    const [field, , helpers] = useField<MultiValueString[]>(props.name);
     const values = field.value;
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>, idx: number) => {
-        const { value } = e.target;
-        const newArray = Object.assign([], values, { [idx]: value });
-
-        helpers.setValue(newArray);
-    };
-
-    const addButton = () => helpers.setValue([...values, '']);
+    const addButton = () => helpers.setValue([...values, {name: ''}]);
 
     const deleteButton = (index: number) => {
-        const result = [...values.slice(0, index), ...values.slice(index + 1)];
+        const result = values.filter((val: any, idx: number) => idx !== index);
 
         helpers.setValue(result);
     };
@@ -33,43 +27,60 @@ const TextInputMultiValue = (props: TextInputProps) => {
     const isAddBtnDisabled = values.length === 3;
 
     return (
-        <>
-            {values?.map((val: any, idx: number) => (
-                <React.Fragment key={idx}>
-                    <Form.Floating className="d-flex mt-3">
-                        <Form.Control
-                            value={val}
-                            className="textInput"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                handleChange(e, idx)
-                            }
-                            isInvalid={meta.touched && Boolean(meta.error)}
-                            isValid={meta.touched && !Boolean(meta.error)}
-                            placeholder={props.label}
-                        />
-                        <label htmlFor={props.id}>{props.label}</label>
-                        <Button
-                            disabled={isAddBtnDisabled}
-                            className={`${addBtnMargin} addButton`}
-                            onClick={addButton}
-                            size="lg"
-                        >
-                            +
-                        </Button>
-                        {values.length > 1 && (
-                            <Button
-                                className="deleteButton"
-                                onClick={() => deleteButton(idx)}
-                                size="lg"
-                            >
-                                -
-                            </Button>
-                        )}
-                    </Form.Floating>
-                    {val === '' && <FieldErrorMessage name={field.name} />}
-                </React.Fragment>
-            ))}
-        </>
+        <FieldArray
+            name={props.name}
+            render={() => (
+                <>
+                    {values.length > 0 &&
+                        values.map((val, idx) => (
+                            <React.Fragment key={idx}>
+                                <Field name={`${props.name}.${idx}.name`}>
+                                    {({meta, field}: any) => {
+                                        const isTouched = meta.touched;
+                                        const hasError = meta.error && meta.error[idx];
+
+                                        return (
+                                            <>
+                                                <Form.Floating className="d-flex mt-3">
+                                                    <Form.Control
+                                                        {...field}
+                                                        id={props.id}
+                                                        value={val.name}
+                                                        className="textInput"
+                                                        isInvalid={isTouched && Boolean(hasError)}
+                                                        isValid={isTouched && !Boolean(hasError)}
+                                                        onBlur={field.onBlur}
+                                                        placeholder={props.label}
+                                                    />
+                                                    <label htmlFor={props.id}>{props.label}</label>
+                                                    <Button
+                                                        disabled={isAddBtnDisabled}
+                                                        className={`${addBtnMargin} addButton`}
+                                                        onClick={addButton}
+                                                        size="lg"
+                                                    >
+                                                        +
+                                                    </Button>
+                                                    {values.length > 1 && (
+                                                        <Button
+                                                            className="deleteButton"
+                                                            onClick={() => deleteButton(idx)}
+                                                            size="lg"
+                                                        >
+                                                            -
+                                                        </Button>
+                                                    )}
+                                                </Form.Floating>
+                                                <FieldErrorMessage name={`${props.name}.${idx}.name`} />
+                                            </>
+                                        );
+                                    }}
+                                </Field>
+                            </React.Fragment>
+                        ))}
+                </>
+            )}
+        />
     );
 };
 

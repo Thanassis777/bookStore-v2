@@ -1,17 +1,16 @@
-import {
-    CodeListType,
-    initialCodeList,
-    Types,
-} from '../../shared/models/ApplicationTypes';
+import { CodeListType, Types } from '../../shared/models/ApplicationTypes';
 import { ComponentProps } from '../../shared/models/ComponentProps';
-import { validateAuthors } from './validationSchema';
+
+export type MultiValueString = {
+    name: string;
+};
 
 export interface BookModel {
     title: string;
     subtitle: string;
     isbn: string;
     pages: string;
-    author: string[];
+    author: MultiValueString[];
     publisher: string;
     published: Date | string;
     rating: number;
@@ -24,7 +23,7 @@ const initialBookState: BookModel = {
     subtitle: '',
     isbn: '',
     pages: '',
-    author: [''],
+    author: [{ name: '' }],
     publisher: '',
     published: '',
     rating: -1,
@@ -80,7 +79,6 @@ export const getInitialFormModel = (
         id: 'author',
         name: 'author',
         type: Types.MULTI_VALUE,
-        customValidation: validateAuthors,
     },
     {
         label: 'Description',

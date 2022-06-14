@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
-import initialBookState, { BookModel, getInitialFormModel } from './formModel';
-import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router';
-import { getService, postService } from '../../api';
-import { getFormComponent } from '../../shared/utilities';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Col, Row} from 'react-bootstrap';
+import initialBookState, {BookModel, getInitialFormModel} from './formModel';
+import {Form, Formik} from 'formik';
+import {useNavigate} from 'react-router';
+import {getService, postService} from '../../api';
+import {getFormComponent} from '../../shared/utilities';
 import FormWrapper from '../../Layouts/FormWrapper';
 import FooterButtons from './FooterButtons';
-import { formSchema } from './validationSchema';
+import {formSchema} from './validationSchema';
 
 const AddBook = () => {
     const navigate = useNavigate();
@@ -27,34 +27,23 @@ const AddBook = () => {
 
     return (
         <FormWrapper title="Add a new Book">
-            <Formik<BookModel>
-                initialValues={initialBookState}
-                validationSchema={formSchema}
-                onSubmit={submitBook}
-            >
-                {({ handleSubmit, values, errors }) => {
-                    console.log(values);
-                    console.log('-->', errors);
+            <Formik<BookModel> initialValues={initialBookState} validationSchema={formSchema} onSubmit={submitBook}>
+                {({handleSubmit, values, errors}) => {
                     const bookValuesWithOptions = getInitialFormModel(options);
 
                     return (
                         <Form onSubmit={handleSubmit}>
                             <Row className="align-items-center">
                                 <Row>
-                                    {bookValuesWithOptions.map(
-                                        (item, idx: number) => (
-                                            <Col xs={6} key={idx}>
-                                                {getFormComponent(item)}
-                                            </Col>
-                                        )
-                                    )}
+                                    {bookValuesWithOptions.map((item, idx: number) => (
+                                        <Col xs={6} key={idx}>
+                                            {getFormComponent(item)}
+                                        </Col>
+                                    ))}
                                 </Row>
                             </Row>
                             <Row className="mt-3 justify-content-between">
-                                <FooterButtons
-                                    handleCancel={handleCancelBtn}
-                                    handleSubmit={handleSubmit}
-                                />
+                                <FooterButtons handleCancel={handleCancelBtn} handleSubmit={handleSubmit} />
                             </Row>
                         </Form>
                     );
