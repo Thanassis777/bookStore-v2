@@ -10,7 +10,7 @@ export interface BookModel {
     subtitle: string;
     isbn: string;
     pages: string;
-    author: MultiValueString[];
+    authors: MultiValueString[];
     publisher: string;
     published: Date | string;
     rating: number;
@@ -23,7 +23,7 @@ const initialBookState: BookModel = {
     subtitle: '',
     isbn: '',
     pages: '',
-    author: [{ name: '' }],
+    authors: [{ name: '' }],
     publisher: '',
     published: '',
     rating: -1,
@@ -76,8 +76,8 @@ export const getInitialFormModel = (
     },
     {
         label: 'Author',
-        id: 'author',
-        name: 'author',
+        id: 'authors',
+        name: 'authors',
         type: Types.MULTI_VALUE,
     },
     {

@@ -10,9 +10,9 @@ const axiosInstance = axios.create({
     },
 });
 
-export const getService = (url: string) =>
+export const getService = (url: string, config?: {}) =>
     axiosInstance
-        .get(url)
+        .get(url, config)
         .then((res) => Promise.resolve(res))
         .catch((err) => Promise.reject(err));
 

@@ -6,4 +6,5 @@ export enum FieldErrorMessages {
     MIN_STRING_LENGTH = 'Minimum characters allowed: ',
     RATING_EMPTY = 'Please select a rating star ',
     ISBN = 'ISBN must have exactly 10 digits',
+    MAX_AUTHORS = 'Max three authors allowed',
 }

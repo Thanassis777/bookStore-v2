@@ -1,4 +1,3 @@
-import React from 'react';
 import Form from 'react-bootstrap/Form';
 import {useField} from 'formik';
 import {ComponentProps} from '../../shared/models/ComponentProps';

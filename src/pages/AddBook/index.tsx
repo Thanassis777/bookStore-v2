@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import initialBookState, {BookModel, getInitialFormModel} from './formModel';
 import {Form, Formik} from 'formik';
@@ -14,7 +14,12 @@ const AddBook = () => {
     const [options, setOptions] = useState([]);
 
     const submitBook = (values: BookModel) => {
-        return postService('/books', values).then(() => {
+        const newBook = {
+            ...values,
+            authors: values.authors.map((auth) => auth.name),
+        };
+
+        return postService('/books', newBook).then(() => {
             navigate('/');
         });
     };
@@ -28,7 +33,7 @@ const AddBook = () => {
     return (
         <FormWrapper title="Add a new Book">
             <Formik<BookModel> initialValues={initialBookState} validationSchema={formSchema} onSubmit={submitBook}>
-                {({handleSubmit, values, errors}) => {
+                {({handleSubmit}) => {
                     const bookValuesWithOptions = getInitialFormModel(options);
 
                     return (

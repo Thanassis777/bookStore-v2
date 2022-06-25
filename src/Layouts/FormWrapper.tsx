@@ -1,5 +1,4 @@
-import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import {Col, Container, Row} from 'react-bootstrap';
 import Header from './Header';
 
 type FormWrapperProps = {
@@ -7,7 +6,7 @@ type FormWrapperProps = {
     title: string;
 };
 
-const FormWrapper = ({ children, title }: FormWrapperProps) => {
+const FormWrapper = ({children, title}: FormWrapperProps) => {
     return (
         <Container>
             <Row className="mt-3">

@@ -1,3 +1,8 @@
+@keyframes fadeIn {
+  from {opacity :1;}
+  to {opacity :0;}
+}
+
 .textInput {
   background-color: rgb(245 247 249);
 }
@@ -14,6 +19,7 @@
 
   &:hover, &:focus, &:disabled  {
     background-color: #228520;
+    border-color: #fb618f;
   }
 }
 
@@ -24,6 +30,16 @@
   &:hover, &:focus  {
     background-color: #e25b28;
   }
+}
+
+.infoMessage {
+  font-family: cursive;
+  font-size: 1.5rem;
+  color: #b22222;
+
+  animation:fadeIn  0.5s 1;
+  animation-fill-mode: forwards;
+  animation-delay:3s;
 }
 
 
