@@ -43,4 +43,8 @@ export const formSchema = Yup.object().shape({
             name: Yup.string().required(FieldErrorMessages.MANDATORY_FIELD),
         })
     ),
+    avatar: Yup.array().test({
+        message: FieldErrorMessages.MANDATORY_FIELD,
+        test: (arr) => arr.length !== 0,
+    }),
 });

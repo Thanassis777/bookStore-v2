@@ -4,7 +4,7 @@ import initialBookState, {BookModel, getInitialFormModel} from './formModel';
 import {Form, Formik} from 'formik';
 import {useNavigate} from 'react-router';
 import {getService, postService} from '../../api';
-import {getFormComponent} from '../../shared/utilities';
+import {getFormComponent, uploadImage} from '../../shared/utilities';
 import FormWrapper from '../../Layouts/FormWrapper';
 import FooterButtons from './FooterButtons';
 import {formSchema} from './validationSchema';
@@ -19,9 +19,17 @@ const AddBook = () => {
             authors: values.authors.map((auth) => auth.name),
         };
 
-        return postService('/books', newBook).then(() => {
-            navigate('/');
-        });
+        return postService('/books', newBook)
+            .then((response) => {
+                const {_id} = response.data;
+                const formData = new FormData();
+
+                formData.append('avatar', values.avatar[0]);
+                return uploadImage(_id, formData);
+            })
+            .then(() => {
+                navigate('/');
+            });
     };
 
     useEffect(() => {

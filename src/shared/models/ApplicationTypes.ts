@@ -3,6 +3,7 @@ export enum Types {
     DATE = 'date',
     DROPDOWN = 'dropdown',
     MULTI_VALUE = 'multi-value',
+    DROPZONE = 'dropzone',
 }
 
 export interface CodeListType {

@@ -1,5 +1,5 @@
-import { CodeListType, Types } from '../../shared/models/ApplicationTypes';
-import { ComponentProps } from '../../shared/models/ComponentProps';
+import {CodeListType, Types} from '../../shared/models/ApplicationTypes';
+import {ComponentProps} from '../../shared/models/ComponentProps';
 
 export type MultiValueString = {
     name: string;
@@ -16,6 +16,7 @@ export interface BookModel {
     rating: number;
     description: string;
     category: CodeListType[];
+    avatar: File[];
 }
 
 const initialBookState: BookModel = {
@@ -23,17 +24,16 @@ const initialBookState: BookModel = {
     subtitle: '',
     isbn: '',
     pages: '',
-    authors: [{ name: '' }],
+    authors: [{name: ''}],
     publisher: '',
     published: '',
     rating: -1,
     description: '',
     category: [],
+    avatar: [],
 };
 
-export const getInitialFormModel = (
-    categoryOptions: CodeListType[]
-): ComponentProps[] => [
+export const getInitialFormModel = (categoryOptions: CodeListType[]): ComponentProps[] => [
     {
         label: 'Title',
         id: 'title',
@@ -91,6 +91,12 @@ export const getInitialFormModel = (
         id: 'rating',
         name: 'rating',
         type: Types.RATING,
+    },
+    {
+        label: 'Avatar',
+        id: 'avatar',
+        name: 'avatar',
+        type: Types.DROPZONE,
     },
 ];
 

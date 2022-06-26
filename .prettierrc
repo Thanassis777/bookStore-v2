@@ -4,6 +4,6 @@
   "singleQuote": true,
   "trailingComma": "es5",
   "bracketSameLine": false,
-  "printWidth": 120,
+  "printWidth": 140,
   "bracketSpacing": false
 }

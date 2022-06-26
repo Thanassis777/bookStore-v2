@@ -1,0 +1,33 @@
+.thumbsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.thumb {
+  display: inline-flex;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+}
+
+.thumbInner {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+.img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+
+.deleteIcon {
+  margin-left: 0.8rem;
+  cursor: pointer;
+  color: red;
+}
