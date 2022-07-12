@@ -10,5 +10,6 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "noUnusedLocals": true
-    }
+    },
+    "include": ["src", "custom.d.ts"]
 }

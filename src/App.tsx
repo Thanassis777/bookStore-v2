@@ -1,18 +1,14 @@
 import {Suspense} from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import './App.css';
 import Routing from './routes/Routing';
-import Layout from './Layouts/Layout';
+import Layout from './hocs/Layout';
 
 function App() {
     return (
-        <BrowserRouter>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Layout>
-                    <Routing />
-                </Layout>
-            </Suspense>
-        </BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Layout>
+                <Routing />
+            </Layout>
+        </Suspense>
     );
 }
 

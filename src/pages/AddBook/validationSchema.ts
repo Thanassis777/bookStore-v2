@@ -12,7 +12,6 @@ export const formSchema = Yup.object().shape({
         .min(10, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
         .max(120, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     subtitle: Yup.string()
-        .required(FieldErrorMessages.MANDATORY_FIELD)
         .min(2, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
         .max(50, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     pages: Yup.number()
@@ -25,7 +24,6 @@ export const formSchema = Yup.object().shape({
         .min(5, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)
         .max(60, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),
     published: Yup.date().required(FieldErrorMessages.MANDATORY_FIELD),
-    rating: Yup.number().required(FieldErrorMessages.MANDATORY_FIELD).positive(FieldErrorMessages.RATING_EMPTY),
     description: Yup.string()
         .required(FieldErrorMessages.MANDATORY_FIELD)
         .max(512, (val) => FieldErrorMessages.MAX_STRING_LENGTH + val.max),

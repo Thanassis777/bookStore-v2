@@ -1,11 +1,13 @@
 import {useDropzone} from 'react-dropzone';
 import {useField} from 'formik';
 import {ComponentProps} from '../../shared/models/ComponentProps';
-import {Button} from 'react-bootstrap';
+import {Alert, Button} from 'react-bootstrap';
 import FieldErrorMessage from '../FieldErrorMessage';
 import './DropZone.scss';
 import FileDetails from './FileDetails';
 import {useCallback, useMemo} from 'react';
+import {IconContext} from 'react-icons';
+import {FaInfoCircle} from 'react-icons/fa';
 
 const DropZone = (props: Partial<ComponentProps>) => {
     const [field, , helpers] = useField<File[]>(props.name);
@@ -35,10 +37,15 @@ const DropZone = (props: Partial<ComponentProps>) => {
             <FileDetails files={files} removeFile={removeFile} />
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
-                <Button variant="primary" onClick={open}>
+                <Button variant="warning" onClick={open}>
                     Upload avatar
                 </Button>
-                <p>Only images files are allowed (.jpg, .png, .jpeg)</p>
+                <Alert style={{marginTop: '0.5em'}} variant="primary">
+                    <IconContext.Provider value={{size: '2em', style: {marginRight: '0.5em'}}}>
+                        <FaInfoCircle />
+                        Only images files are allowed (.jpg, .png, .jpeg)
+                    </IconContext.Provider>
+                </Alert>
             </div>
             <FieldErrorMessage name={field.name} />
         </section>

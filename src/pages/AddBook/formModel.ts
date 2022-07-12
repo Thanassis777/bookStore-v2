@@ -27,7 +27,7 @@ const initialBookState: BookModel = {
     authors: [{name: ''}],
     publisher: '',
     published: '',
-    rating: -1,
+    rating: 0,
     description: '',
     category: [],
     avatar: [],

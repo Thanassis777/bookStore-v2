@@ -4,6 +4,7 @@
 
   input {
     box-shadow:  #020e09;
+    background-color: rgb(245 247 249);
 
     &:focus {
       background-color: rgb(245 247 249);
@@ -21,5 +22,10 @@
     transition: 0.7s;
   }
 
+}
+
+.radios {
+  display: flex;
+  justify-content: center;
 }
 
