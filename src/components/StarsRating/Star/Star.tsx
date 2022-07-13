@@ -6,18 +6,19 @@ import './Star.scss';
 
 type StarProps = {
     isFull: boolean;
-    onClick: () => void;
+    isReadonly: boolean;
+    onClick?: () => void;
 };
 
-const renderStar = (isFull: boolean) => {
+const Star = ({isFull, onClick, isReadonly}: StarProps) => {
     const icon = isFull ? faStar : regularStar;
-    return <FontAwesomeIcon icon={icon} size="lg" />;
-};
+    const customClass = isReadonly ? 'readOnly-star' : 'star';
 
-const Star = ({isFull, onClick}: StarProps) => (
-    <span className="star" onClick={onClick}>
-        {renderStar(isFull)}
-    </span>
-);
+    return (
+        <span className={customClass} onClick={onClick}>
+            <FontAwesomeIcon icon={icon} size="lg" />
+        </span>
+    );
+};
 
 export default Star;

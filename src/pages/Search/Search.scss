@@ -31,3 +31,22 @@
         color: #ffe4e1;
     }
 }
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 5px;
+    row-gap: 5rem;
+
+    @media screen and (max-width: 1100px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 620px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

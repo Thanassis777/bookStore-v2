@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Layout = ({children}: LayoutProps) => {
     return (
-        <main>
+        <main style={{overflow: 'hidden'}}>
             <div className="box">
                 <Header title="BookStore" />
             </div>

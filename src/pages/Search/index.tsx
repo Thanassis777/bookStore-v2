@@ -3,17 +3,20 @@ import './Search.scss';
 import {Col, Row} from 'react-bootstrap';
 import IconText from '../../components/IconText';
 import {getService} from '../../api';
+import BookCard, {BookCardProps} from '../../components/BookCard';
 
 const radioLabels = ['Category', 'Year', 'Author'];
 
 const Search = () => {
-    const [data, setData] = useState([]);
-
-    console.log(data);
+    const [data, setData] = useState<BookCardProps[]>([]);
 
     const handleClick = (value: string, filter: string) => {
-        // return getService('/books')
+        return getService('/books').then((response) => {
+            setData(response.data);
+        });
+
         console.log(value, filter);
+
         getService('/books/623e060286eae16fe3cbd92c', {responseType: 'arraybuffer'})
             .then((res) => {
                 setData(res.data);
@@ -30,7 +33,7 @@ const Search = () => {
     // };
 
     return (
-        <main style={{overflow: 'hidden'}}>
+        <>
             <Row className="bookCover">
                 <Col>FREE AND DISCOUNTED BESTSELLERS</Col>
             </Row>
@@ -43,8 +46,25 @@ const Search = () => {
                     <IconText radioLabels={radioLabels} handleClick={handleClick} />
                 </Col>
             </Row>
-            <Row>{/*<img src={'http://localhost:9000/books/avatar/623e060286eae16fe3cbd92c'} />*/}</Row>
-        </main>
+            <Row>
+                {/*<img src={'http://localhost:9000/books/avatar/623e060286eae16fe3cbd92c'} />*/}
+            </Row>
+            <div className="mt-4 pb-5 products-container">
+                {data?.map((book) => (
+                    <BookCard key={book._id} {...book} />
+                ))}
+            </div>
+
+            {/*<Row>*/}
+            {/*    <Col>*/}
+            {/*        <div className="products-container">*/}
+            {/*            {data?.map((book) => (*/}
+            {/*                <BookCard key={book._id} {...book} />*/}
+            {/*            ))}*/}
+            {/*        </div>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
+        </>
     );
 };
 

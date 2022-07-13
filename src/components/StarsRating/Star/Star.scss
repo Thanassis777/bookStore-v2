@@ -14,3 +14,7 @@
 .star:hover:not(:last-child) {
   margin-right: 0.2rem;
 }
+
+.readOnly-star {
+  display: inline-block;
+}
