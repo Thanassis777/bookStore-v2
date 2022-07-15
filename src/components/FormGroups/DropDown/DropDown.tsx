@@ -1,11 +1,11 @@
 import Select from 'react-select';
 import {useField} from 'formik';
-import {ReactSelectOptions} from '../../shared/models/ApplicationTypes';
+import {ReactSelectOptions} from '../../../shared/models/ApplicationTypes';
 import Form from 'react-bootstrap/Form';
-import {ComponentProps} from '../../shared/models/ComponentProps';
-import FieldErrorMessage from '../FieldErrorMessage';
+import {ComponentProps} from '../../../shared/models/ComponentProps';
+import FieldErrorMessage from '../../FieldErrorMessage';
 import {setBorderColor, setBoxShadow} from './utility';
-import {Palette} from '../../shared/models/Palette';
+import {Palette} from '../../../shared/models/Palette';
 
 const DropDown = (props: ComponentProps) => {
     const [field, meta, helpers] = useField(props.name);

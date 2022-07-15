@@ -5,7 +5,7 @@ type HeaderProps = {
 };
 
 const Header = React.memo(({title}: HeaderProps) => {
-    return <h1 style={{textAlign: 'center'}}>{title}</h1>;
+    return <h2>{title}</h2>;
 });
 
 export default Header;

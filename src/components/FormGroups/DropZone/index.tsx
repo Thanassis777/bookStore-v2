@@ -1,8 +1,8 @@
 import {useDropzone} from 'react-dropzone';
 import {useField} from 'formik';
-import {ComponentProps} from '../../shared/models/ComponentProps';
+import {ComponentProps} from '../../../shared/models/ComponentProps';
 import {Alert, Button} from 'react-bootstrap';
-import FieldErrorMessage from '../FieldErrorMessage';
+import FieldErrorMessage from '../../FieldErrorMessage';
 import './DropZone.scss';
 import FileDetails from './FileDetails';
 import {useCallback, useMemo} from 'react';

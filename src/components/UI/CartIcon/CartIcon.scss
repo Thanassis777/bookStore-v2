@@ -1,0 +1,14 @@
+.cart-icon-container {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  .cart-icon {
+    width: 54px;
+    height: 54px;
+  }
+}

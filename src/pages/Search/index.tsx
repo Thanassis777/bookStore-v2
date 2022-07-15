@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import './Search.scss';
 import {Col, Row} from 'react-bootstrap';
-import IconText from '../../components/IconText';
+import IconText from '../../components/FormGroups/IconText';
 import {getService} from '../../api';
-import BookCard, {BookCardProps} from '../../components/BookCard';
+import BookCard, {BookCardProps} from '../../components/UI/BookCard';
 
 const radioLabels = ['Category', 'Year', 'Author'];
 

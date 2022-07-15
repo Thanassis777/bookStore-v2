@@ -1,7 +1,7 @@
-import {BookModel} from '../../pages/AddBook/formModel';
+import {BookModel} from '../../../pages/AddBook/formModel';
 import {Button} from 'react-bootstrap';
 import './BookCard.scss';
-import Stars from '../StarsRating/Stars/Stars';
+import Stars from '../../FormGroups/StarsRating/Stars/Stars';
 
 export interface BookCardProps extends BookModel {
     _id: string;
@@ -16,7 +16,7 @@ const BookCard = (props: BookCardProps) => {
                 <span className="mb-2">
                     <Stars count={props.rating} isReadonly />
                 </span>
-                <Button className="button-add">Add to card</Button>
+                <Button>Add to card</Button>
             </div>
         </div>
     );

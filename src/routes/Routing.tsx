@@ -7,6 +7,7 @@ const Search = React.lazy(() => import('../pages/Search'));
 const AddBook = React.lazy(() => import('../pages/AddBook'));
 const Login = React.lazy(() => import('../pages/Login'));
 const NotFound = React.lazy(() => import('../pages/NotFound'));
+const Checkout = React.lazy(() => import('../pages/Checkout'));
 
 const Routing = () => (
     <Routes>
@@ -15,6 +16,7 @@ const Routing = () => (
             <Route path="/search" element={<Search />} />
             <Route path="/add" element={<AddBook />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<NotFound />} />
         </Route>
     </Routes>

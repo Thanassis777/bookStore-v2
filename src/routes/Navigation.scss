@@ -1,15 +1,13 @@
 .navigation {
+  padding: 0 10px;
   background-color: #f0f8ff;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 
   .logo-container {
-    transform: scale(0.67);
-    height: 100%;
-    width: 80px;
+    transform: scale(0.57);
   }
 
   .links-container {
@@ -23,13 +21,13 @@
       padding: 10px 15px;
       margin: 0 5px;
       cursor: pointer;
-      border-radius: 10%;
-      background-color: #999;
-      color: white;
+      //border-radius: 10%;
+      //background-color: #999;
+      //color: white;
 
       &#login {
         margin-left: 50px;
-        background-color: blue;
+        //background-color: blue;
       }
 
     }

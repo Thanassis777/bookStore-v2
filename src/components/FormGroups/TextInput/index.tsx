@@ -1,9 +1,9 @@
 import Form from 'react-bootstrap/Form';
 import {useField} from 'formik';
-import {ComponentProps} from '../../shared/models/ComponentProps';
+import {ComponentProps} from '../../../shared/models/ComponentProps';
 import './TextInput.scss';
-import FieldErrorMessage from '../FieldErrorMessage';
-import {Palette} from '../../shared/models/Palette';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import {Palette} from '../../../shared/models/Palette';
 
 interface TextInputProps extends ComponentProps {
     placeholder?: string;

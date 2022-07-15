@@ -1,10 +1,10 @@
-import StarsRating from '../components/StarsRating/StarsRating';
-import DropDown from '../components/DropDown/DropDown';
-import TextInput from '../components/TextInput';
+import StarsRating from '../components/FormGroups/StarsRating/StarsRating';
+import DropDown from '../components/FormGroups/DropDown/DropDown';
+import TextInput from '../components/FormGroups/TextInput';
 import {Types} from './models/ApplicationTypes';
 import {ComponentProps} from './models/ComponentProps';
-import TextInputMultiValue from '../components/TextInputMultiValue';
-import DropZone from '../components/DropZone';
+import TextInputMultiValue from '../components/FormGroups/TextInputMultiValue';
+import DropZone from '../components/FormGroups/DropZone';
 import {postService} from '../api';
 
 export const getFormComponent = (item: ComponentProps) => {
@@ -31,5 +31,7 @@ export const getFormComponent = (item: ComponentProps) => {
 };
 
 export const uploadImage = (id: string, data: any) => {
-    return postService(`/books/avatar/upload/${id}`, data, {headers: {'Content-Type': 'multipart/form-data'}});
+    return postService(`/books/avatar/upload/${id}`, data, {
+        headers: {'Content-Type': 'multipart/form-data'},
+    });
 };

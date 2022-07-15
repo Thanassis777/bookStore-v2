@@ -9,7 +9,7 @@ const SignUp = () => {
     const handleSignUp = () => {};
 
     return (
-        <FormWrapper>
+        <FormWrapper title="Don't have an account?" subtitle="Sign up with your email and password">
             <Formik<SignInProps>
                 initialValues={initialSignUpState}
                 validationSchema={signUpFormValidationSchema}
@@ -18,8 +18,6 @@ const SignUp = () => {
                 {({handleSubmit}) => {
                     return (
                         <Form onSubmit={handleSubmit}>
-                            <h4>Don't have an account?</h4>
-                            <span>Sign up with your email and password</span>
                             <Row className="align-items-center">
                                 <Row className="flex-column">
                                     {initialSignUpForm.map((item, idx: number) => (

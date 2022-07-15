@@ -1,12 +1,12 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import {Field, FieldArray, useField} from 'formik';
-import {ComponentProps} from '../../shared/models/ComponentProps';
+import {ComponentProps} from '../../../shared/models/ComponentProps';
 import './TextInputMultiValue.scss';
 import {Button} from 'react-bootstrap';
-import {MultiValueString} from '../../pages/AddBook/formModel';
-import FieldErrorMessage from '../FieldErrorMessage';
-import {FieldErrorMessages} from '../../shared/models/FieldErrorMessages';
+import {MultiValueString} from '../../../pages/AddBook/formModel';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import {FieldErrorMessages} from '../../../shared/models/FieldErrorMessages';
 
 interface TextInputProps extends ComponentProps {
     placeholder?: string;
@@ -44,8 +44,14 @@ const TextInputMultiValue = (props: TextInputProps) => {
                                                     id={props.id}
                                                     value={val.name}
                                                     className="textInput"
-                                                    isInvalid={meta.touched && Boolean(meta.error && meta.error[idx])}
-                                                    isValid={meta.touched && !Boolean(meta.error && meta.error[idx])}
+                                                    isInvalid={
+                                                        meta.touched &&
+                                                        Boolean(meta.error && meta.error[idx])
+                                                    }
+                                                    isValid={
+                                                        meta.touched &&
+                                                        !Boolean(meta.error && meta.error[idx])
+                                                    }
                                                     onBlur={field.onBlur}
                                                     placeholder={props.label}
                                                 />
@@ -74,7 +80,9 @@ const TextInputMultiValue = (props: TextInputProps) => {
                                 </Field>
                             </React.Fragment>
                         ))}
-                    {values.length == 3 && <div className="infoMessage">{FieldErrorMessages.MAX_AUTHORS}</div>}
+                    {values.length == 3 && (
+                        <div className="infoMessage">{FieldErrorMessages.MAX_AUTHORS}</div>
+                    )}
                 </>
             )}
         />

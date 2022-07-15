@@ -1,23 +1,21 @@
 import {Col, Container, Row} from 'react-bootstrap';
-import Header from '../components/Header/Header';
+import Header from '../components/UI/Header/Header';
 
 type FormWrapperProps = {
     children: React.ReactNode;
     title?: string;
+    subtitle?: string;
 };
 
-const FormWrapper = ({children, title}: FormWrapperProps) => {
+const FormWrapper = ({children, title, subtitle}: FormWrapperProps) => {
     return (
         <Container>
-            {title && (
-                <Row className="mt-3">
-                    <Col>
-                        <Header title={title} />
-                    </Col>
-                </Row>
-            )}
             <Row className="m-auto container-fluid">
-                <Col>{children}</Col>
+                <Col>
+                    {title && <Header title={title} />}
+                    {subtitle && <span>{subtitle}</span>}
+                    {children}
+                </Col>
             </Row>
         </Container>
     );
