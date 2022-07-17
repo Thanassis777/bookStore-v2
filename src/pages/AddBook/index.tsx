@@ -1,17 +1,18 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import initialBookState, {BookModel, getInitialFormModel} from './formModel';
 import {Form, Formik} from 'formik';
 import {useNavigate} from 'react-router';
-import {getService, postService} from '../../api';
+import {postService} from '../../api';
 import {getFormComponent, uploadImage} from '../../shared/utilities';
 import FormWrapper from '../../hocs/FormWrapper';
 import FooterButtons from './FooterButtons';
 import {formSchema} from './validationSchema';
+import {useCategoriesData} from '../../store/categories';
 
 const AddBook = () => {
+    const [categories, categoriesLoaded] = useCategoriesData();
     const navigate = useNavigate();
-    const [options, setOptions] = useState([]);
 
     const submitBook = (values: BookModel) => {
         const newBook = {
@@ -32,43 +33,41 @@ const AddBook = () => {
             });
     };
 
-    useEffect(() => {
-        getService('/categories').then((response) => setOptions(response.data));
-    }, []);
-
     const handleCancelBtn = useCallback(() => navigate('/'), []);
 
     return (
         <FormWrapper title="Add a new Book">
-            <Formik<BookModel>
-                initialValues={initialBookState}
-                validationSchema={formSchema}
-                onSubmit={submitBook}
-            >
-                {({handleSubmit}) => {
-                    const bookValuesWithOptions = getInitialFormModel(options);
+            {categoriesLoaded && (
+                <Formik<BookModel>
+                    initialValues={initialBookState}
+                    validationSchema={formSchema}
+                    onSubmit={submitBook}
+                >
+                    {({handleSubmit}) => {
+                        const bookValuesWithOptions = getInitialFormModel(categories);
 
-                    return (
-                        <Form onSubmit={handleSubmit}>
-                            <Row className="align-items-center">
-                                <Row>
-                                    {bookValuesWithOptions.map((item, idx: number) => (
-                                        <Col xs={6} key={idx}>
-                                            {getFormComponent(item)}
-                                        </Col>
-                                    ))}
+                        return (
+                            <Form onSubmit={handleSubmit}>
+                                <Row className="align-items-center">
+                                    <Row>
+                                        {bookValuesWithOptions.map((item) => (
+                                            <Col xs={6} key={item.id}>
+                                                {getFormComponent(item)}
+                                            </Col>
+                                        ))}
+                                    </Row>
                                 </Row>
-                            </Row>
-                            <Row className="mt-3 justify-content-between">
-                                <FooterButtons
-                                    handleCancel={handleCancelBtn}
-                                    handleSubmit={handleSubmit}
-                                />
-                            </Row>
-                        </Form>
-                    );
-                }}
-            </Formik>
+                                <Row className="mt-3 justify-content-between">
+                                    <FooterButtons
+                                        handleCancel={handleCancelBtn}
+                                        handleSubmit={handleSubmit}
+                                    />
+                                </Row>
+                            </Form>
+                        );
+                    }}
+                </Formik>
+            )}
         </FormWrapper>
     );
 };

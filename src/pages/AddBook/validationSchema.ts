@@ -19,6 +19,7 @@ export const formSchema = Yup.object().shape({
         .positive()
         .integer()
         .max(9999, FieldErrorMessages.PAGE_LIMIT),
+    price: Yup.number().required(FieldErrorMessages.MANDATORY_FIELD).positive(),
     publisher: Yup.string()
         .required(FieldErrorMessages.MANDATORY_FIELD)
         .min(5, (val) => FieldErrorMessages.MIN_STRING_LENGTH + val.min)

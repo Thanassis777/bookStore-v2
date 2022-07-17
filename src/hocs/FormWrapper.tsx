@@ -10,7 +10,7 @@ type FormWrapperProps = {
 const FormWrapper = ({children, title, subtitle}: FormWrapperProps) => {
     return (
         <Container>
-            <Row className="m-auto container-fluid">
+            <Row className="m-auto mt-3 container-fluid">
                 <Col>
                     {title && <Header title={title} />}
                     {subtitle && <span>{subtitle}</span>}

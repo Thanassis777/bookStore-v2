@@ -1,39 +1,29 @@
 import FormWrapper from '../../hocs/FormWrapper';
-import {Col, Row} from 'react-bootstrap';
-import {mockData} from '../../mockData';
 import './Checkout.scss';
+import {useAppSelector} from '../../store/storeHooks';
+import {checkoutData, totalPrice} from '../../store/checkout';
+import CheckoutItem from './CheckoutItem';
+
+const titles = ['Book', 'Title', 'Amount', 'Price', 'Remove'];
 
 const Checkout = () => {
+    const booksInCart = useAppSelector(checkoutData);
+    const totalBookPrice = useAppSelector(totalPrice);
+
     return (
         <FormWrapper title="Checkout">
             <div className="checkout-container">
-                <Row className="title-container">
-                    <Col xs="auto">
-                        <h4>Book</h4>
-                    </Col>
-                    <Col xs="auto">
-                        <h4>Title</h4>
-                    </Col>
-                    <Col xs="auto">
-                        <h4>Quantity</h4>
-                    </Col>
-                    <Col xs="auto">
-                        <h4>Price</h4>
-                    </Col>
-                </Row>
-                {mockData.map((item: any, index: number) => (
-                    <Row className="justify-content-between align-items-center">
-                        <Col xs="auto">
-                            <img
-                                src={`http://localhost:9000/books/avatar/${item._id}`}
-                                alt={`${item.name}`}
-                            />
-                        </Col>
-                        <Col xs="auto">{item.name}</Col>
-                        <Col xs="auto">{item.quantity}</Col>
-                        <Col xs="auto">{item.price}</Col>
-                    </Row>
+                <div className="checkout-header">
+                    {titles.map((title, index) => (
+                        <div key={title + index} className="checkout-header-block">
+                            <span>{title}</span>
+                        </div>
+                    ))}
+                </div>
+                {booksInCart.map((item) => (
+                    <CheckoutItem key={item._id} bookItem={item} />
                 ))}
+                <div className="total">TOTAL: {totalBookPrice}€</div>
             </div>
         </FormWrapper>
     );

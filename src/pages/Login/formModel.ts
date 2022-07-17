@@ -4,7 +4,7 @@ export interface ILogin {
     email: string;
     password: string;
     confirmPassword: string;
-    fullName: string;
+    name: string;
 }
 
 export type SignInProps = Pick<ILogin, 'email' | 'password'>;
@@ -17,7 +17,7 @@ export const initialSignInState: SignInProps = {
 export const initialSignInForm: ComponentProps[] = [
     {
         label: 'Email',
-        id: 'email',
+        id: 'emailSignIn',
         name: 'email',
     },
     {
@@ -32,18 +32,18 @@ export const initialSignUpState: ILogin = {
     email: '',
     password: '',
     confirmPassword: '',
-    fullName: '',
+    name: '',
 };
 
 export const initialSignUpForm: ComponentProps[] = [
     {
         label: 'Email',
-        id: 'email',
+        id: 'emailSignUp',
         name: 'email',
     },
     {
         label: 'Password',
-        id: 'password',
+        id: 'passwordSignUp',
         name: 'password',
         type: 'password',
     },
@@ -56,6 +56,6 @@ export const initialSignUpForm: ComponentProps[] = [
     {
         label: 'Full Name',
         id: 'fullName',
-        name: 'fullName',
+        name: 'name',
     },
 ];

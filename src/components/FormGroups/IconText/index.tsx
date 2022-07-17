@@ -31,15 +31,21 @@ const IconText = ({handleClick, radioLabels}: IconTextProps) => {
         <>
             <InputGroup className="iconText">
                 <FormControl onChange={handleChange} placeholder="Search" aria-label="Search Βαr" />
-                <Button className="buttonSearch" onClick={handleSearchButton} size="lg" variant="outline-light" id="search-button">
+                <Button
+                    className="buttonSearch"
+                    onClick={handleSearchButton}
+                    size="lg"
+                    variant="outline-light"
+                    id="search-button"
+                >
                     Search
                 </Button>
             </InputGroup>
             <div className="mt-1 radios">
-                {radioLabels.map((label, index) => (
+                {radioLabels.map((label) => (
                     <Form.Check
                         style={{fontFamily: 'cursive'}}
-                        key={index}
+                        key={label}
                         inline
                         label={label}
                         onChange={onChangeValue}

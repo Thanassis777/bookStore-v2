@@ -1,16 +1,20 @@
 import {useState} from 'react';
 import './Search.scss';
 import {Col, Row} from 'react-bootstrap';
-import IconText from '../../components/FormGroups/IconText';
+import {default as SearchBar} from '../../components/FormGroups/IconText';
 import {getService} from '../../api';
 import BookCard, {BookCardProps} from '../../components/UI/BookCard';
+import {BookModel} from '../AddBook/formModel';
+import {useAppDispatch} from '../../store/storeHooks';
+import {addItem} from '../../store/checkout';
 
 const radioLabels = ['Category', 'Year', 'Author'];
 
 const Search = () => {
+    const dispatch = useAppDispatch();
     const [data, setData] = useState<BookCardProps[]>([]);
 
-    const handleClick = (value: string, filter: string) => {
+    const onSearchClick = (value: string, filter: string) => {
         return getService('/books').then((response) => {
             setData(response.data);
         });
@@ -32,6 +36,11 @@ const Search = () => {
     //     setSelectedFilter(value);
     // };
 
+    const onAddBook = (book: BookModel) => {
+        const addedBook = {...book, amount: ++book.amount};
+        dispatch(addItem(addedBook));
+    };
+
     return (
         <>
             <Row className="bookCover">
@@ -43,27 +52,14 @@ const Search = () => {
                         <i>Search to find your new book</i>
                     </h3>
 
-                    <IconText radioLabels={radioLabels} handleClick={handleClick} />
+                    <SearchBar radioLabels={radioLabels} handleClick={onSearchClick} />
                 </Col>
-            </Row>
-            <Row>
-                {/*<img src={'http://localhost:9000/books/avatar/623e060286eae16fe3cbd92c'} />*/}
             </Row>
             <div className="mt-4 pb-5 products-container">
                 {data?.map((book) => (
-                    <BookCard key={book._id} {...book} />
+                    <BookCard handeAddClick={onAddBook.bind(null, book)} key={book._id} {...book} />
                 ))}
             </div>
-
-            {/*<Row>*/}
-            {/*    <Col>*/}
-            {/*        <div className="products-container">*/}
-            {/*            {data?.map((book) => (*/}
-            {/*                <BookCard key={book._id} {...book} />*/}
-            {/*            ))}*/}
-            {/*        </div>*/}
-            {/*    </Col>*/}
-            {/*</Row>*/}
         </>
     );
 };

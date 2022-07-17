@@ -1,16 +1,19 @@
 import './CartItem.scss';
+import {BookModel} from '../../../../pages/AddBook/formModel';
 
-const CartItem = (props: any) => {
-    const {_id, price, name, quantity} = props;
+// interface CartItemProps extends Pick<BookModel, "price" | "title">, BookID
+type CartItemProps = Pick<BookModel, 'title' | 'price' | '_id' | 'amount'>;
 
+const CartItem = ({_id, price, title, amount}: CartItemProps) => {
     return (
         <div className="cart-item-container">
-            <img src={`http://localhost:9000/books/avatar/${_id}`} alt={`${name}`} />
+            <img src={`http://localhost:9000/books/avatar/${_id}`} alt={`${title}`} />
             <div className="item-details">
-                <span className="name">{name}</span>
+                <span className="name">{title}</span>
                 <span className="price">
-                    {quantity} x ${price}
+                    {amount} x {price}€
                 </span>
+                <span className="price">{price}€</span>
             </div>
         </div>
     );

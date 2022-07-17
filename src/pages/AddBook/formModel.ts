@@ -6,10 +6,13 @@ export type MultiValueString = {
 };
 
 export interface BookModel {
+    _id?: string;
     title: string;
     subtitle: string;
     isbn: string;
     pages: string;
+    price: string;
+    amount: number;
     authors: MultiValueString[];
     publisher: string;
     published: Date | string;
@@ -24,6 +27,8 @@ const initialBookState: BookModel = {
     subtitle: '',
     isbn: '',
     pages: '',
+    price: '',
+    amount: 0,
     authors: [{name: ''}],
     publisher: '',
     published: '',
@@ -54,6 +59,12 @@ export const getInitialFormModel = (categoryOptions: CodeListType[]): ComponentP
         label: 'Pages',
         id: 'pages',
         name: 'pages',
+        type: 'number',
+    },
+    {
+        label: 'Price',
+        id: 'price',
+        name: 'price',
         type: 'number',
     },
     {

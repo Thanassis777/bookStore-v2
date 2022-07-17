@@ -5,18 +5,20 @@ import Stars from '../../FormGroups/StarsRating/Stars/Stars';
 
 export interface BookCardProps extends BookModel {
     _id: string;
+    handeAddClick: () => void;
 }
 
-const BookCard = (props: BookCardProps) => {
+const BookCard = ({_id, title, rating, price, handeAddClick}: BookCardProps) => {
     return (
         <div className="product-card-container">
-            <img src={`http://localhost:9000/books/avatar/${props._id}`} alt={`${props.title}`} />
+            <img src={`http://localhost:9000/books/avatar/${_id}`} alt={`${title}`} />
             <div className="footer">
-                <span className="name">{props.title}</span>
+                <span className="name">{title}</span>
+                <span className="price">{price} €</span>
                 <span className="mb-2">
-                    <Stars count={props.rating} isReadonly />
+                    <Stars count={rating} isReadonly />
                 </span>
-                <Button>Add to card</Button>
+                <Button onClick={handeAddClick}>Add to card</Button>
             </div>
         </div>
     );

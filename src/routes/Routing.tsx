@@ -1,13 +1,11 @@
-import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Navigation from './Navigation';
-
-const Home = React.lazy(() => import('../pages/Home/'));
-const Search = React.lazy(() => import('../pages/Search'));
-const AddBook = React.lazy(() => import('../pages/AddBook'));
-const Login = React.lazy(() => import('../pages/Login'));
-const NotFound = React.lazy(() => import('../pages/NotFound'));
-const Checkout = React.lazy(() => import('../pages/Checkout'));
+import Home from '../pages/Home';
+import AddBook from '../pages/AddBook';
+import Search from '../pages/Search';
+import Login from '../pages/Login';
+import Checkout from '../pages/Checkout';
+import NotFound from '../pages/NotFound';
 
 const Routing = () => (
     <Routes>

@@ -4,10 +4,17 @@ import {ReactComponent as BookLogo} from '../assets/pile-book.svg';
 import './Navigation.scss';
 import CartIcon from '../components/UI/CartIcon';
 import CartDropDown from '../components/UI/CartDropDown';
-import {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../store/storeHooks';
+import {checkoutData, isOpenCart, setIsOpenCart, totalAmount} from '../store/checkout';
 
 const Navigation = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useAppDispatch();
+
+    const booksInCart = useAppSelector(checkoutData);
+    const isOpen = useAppSelector(isOpenCart);
+    const totalItems = useAppSelector(totalAmount);
+
+    const handleCartIcon = () => dispatch(setIsOpenCart(!isOpen));
 
     return (
         <>
@@ -25,8 +32,8 @@ const Navigation = () => {
                     <Link id="login" className="nav-link" to="/login">
                         LOGIN
                     </Link>
-                    <CartIcon handleOpen={() => setIsOpen(!isOpen)} />
-                    {isOpen && <CartDropDown />}
+                    <CartIcon handleOpen={handleCartIcon} />({totalItems})
+                    {isOpen && <CartDropDown items={booksInCart} />}
                 </div>
             </div>
             <Outlet />

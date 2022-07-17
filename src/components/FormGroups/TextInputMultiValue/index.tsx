@@ -34,7 +34,7 @@ const TextInputMultiValue = (props: TextInputProps) => {
                 <>
                     {values.length > 0 &&
                         values.map((val, idx) => (
-                            <React.Fragment key={idx}>
+                            <React.Fragment key={val.name}>
                                 <Field name={`${props.name}.${idx}.name`}>
                                     {({meta, field}: any) => (
                                         <>

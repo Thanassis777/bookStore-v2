@@ -18,7 +18,7 @@ export const signUpSchema = {
         .test('match', 'Incorrect password', function (currPassword) {
             return currPassword === this.parent.password;
         }),
-    fullName: Yup.string(),
+    name: Yup.string().required(FieldErrorMessages.MANDATORY_FIELD),
 };
 
 export const signInFormValidationSchema = Yup.object().shape(signInSchema);
