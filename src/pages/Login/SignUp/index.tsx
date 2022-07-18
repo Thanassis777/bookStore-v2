@@ -1,23 +1,31 @@
 import {Form, Formik} from 'formik';
 import {ILogin, initialSignUpForm, initialSignUpState} from '../formModel';
 import {Button, Col, Row} from 'react-bootstrap';
-import {errorToast, getFormComponent, successToast} from '../../../shared/utilities';
+import {getFormComponent, notifyToast} from '../../../shared/utilities';
 import FormWrapper from '../../../hocs/FormWrapper';
 import {signUpFormValidationSchema} from '../validationSchema';
 import {signUpUser} from '../../../store/user';
 import {unwrapResult} from '@reduxjs/toolkit';
 import {useAppDispatch} from '../../../store/storeHooks';
+import {ToastTypes} from '../../../shared/models/ApplicationTypes';
+import {ToastPosition} from 'react-toastify';
 
 const SignUp = () => {
     const dispatch = useAppDispatch();
 
+    const opt = {
+        position: 'bottom-right' as ToastPosition,
+    };
+
     const handleSignUp = (values: ILogin) => {
         dispatch(signUpUser(values))
             .then(unwrapResult)
-            .then(() => {
-                successToast('You have successfully created an account!');
-            })
-            .catch((err: Error) => errorToast(err.message));
+            .then(() =>
+                notifyToast(ToastTypes.SUCCESS, 'You have successfully created an account!', {
+                    ...opt,
+                })
+            )
+            .catch((err: Error) => notifyToast(ToastTypes.SUCCESS, err.message));
     };
 
     return (
@@ -39,7 +47,7 @@ const SignUp = () => {
                                     ))}
                                 </Row>
                                 <Col>
-                                    <Button className="mt-3" variant="secondary" type="submit">
+                                    <Button className="mt-3" variant="warning" type="submit">
                                         Sign Up
                                     </Button>
                                 </Col>

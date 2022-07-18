@@ -1,6 +1,6 @@
 import {Form, Formik} from 'formik';
 import {Button, Col, Row} from 'react-bootstrap';
-import {errorToast, getFormComponent, successToast} from '../../../shared/utilities';
+import {getFormComponent, notifyToast} from '../../../shared/utilities';
 import {initialSignInForm, initialSignInState, SignInProps} from '../formModel';
 import FormWrapper from '../../../hocs/FormWrapper';
 import {signInFormValidationSchema} from '../validationSchema';
@@ -9,6 +9,7 @@ import {signInWithUser} from '../../../store/user';
 import {ToastContainer} from 'react-toastify';
 import ToastMessage from '../../../hocs/ToastMessage';
 import {unwrapResult} from '@reduxjs/toolkit';
+import {ToastTypes} from '../../../shared/models/ApplicationTypes';
 
 const SignIn = () => {
     const dispatch = useAppDispatch();
@@ -17,9 +18,9 @@ const SignIn = () => {
         dispatch(signInWithUser(values))
             .then(unwrapResult) // use 'unwrapResult' to extract the result  from either fulfilled/ rejected result
             .then(() => {
-                successToast('Successfully signed in');
+                notifyToast(ToastTypes.SUCCESS, 'Successfully signed in');
             })
-            .catch((err: Error) => errorToast(err.message));
+            .catch((err: Error) => notifyToast(ToastTypes.ERROR, err.message));
     };
 
     return (

@@ -1,7 +1,7 @@
 import StarsRating from '../components/FormGroups/StarsRating/StarsRating';
 import DropDown from '../components/FormGroups/DropDown/DropDown';
 import TextInput from '../components/FormGroups/TextInput';
-import {Types} from './models/ApplicationTypes';
+import {ToastTypes, Types} from './models/ApplicationTypes';
 import {ComponentProps} from './models/ComponentProps';
 import TextInputMultiValue from '../components/FormGroups/TextInputMultiValue';
 import DropZone from '../components/FormGroups/DropZone';
@@ -40,7 +40,7 @@ export const uploadImage = (id: string, data: any) => {
 
 const toastConfig = {
     position: 'bottom-left' as ToastPosition,
-    autoClose: 2000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -49,16 +49,30 @@ const toastConfig = {
     theme: 'colored' as Theme,
 };
 
-export const successToast = (message: string, customOptions?: ToastOptions) => {
-    toast.success(message, {
-        ...toastConfig,
-        ...customOptions,
-    });
-};
+export const notifyToast = (type: ToastTypes, message: string, customOptions?: ToastOptions) => {
+    let toastFn;
 
-export const errorToast = (message: string, customOptions?: ToastOptions) => {
-    toast.error(message, {
+    const configs = {
         ...toastConfig,
         ...customOptions,
-    });
+    };
+
+    switch (type) {
+        case ToastTypes.SUCCESS:
+            toastFn = () => toast.success(message, configs);
+            break;
+        case ToastTypes.ERROR:
+            toastFn = () => toast.error(message, configs);
+            break;
+        case ToastTypes.INFO:
+            toastFn = () => toast.info(message, configs);
+            break;
+        case ToastTypes.WARNING:
+            toastFn = () => toast.warn(message, configs);
+            break;
+        default:
+            toastFn = null;
+    }
+
+    return toastFn();
 };

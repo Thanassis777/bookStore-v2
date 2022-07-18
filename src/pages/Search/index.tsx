@@ -7,11 +7,14 @@ import BookCard, {BookCardProps} from '../../components/UI/BookCard';
 import {BookModel} from '../AddBook/formModel';
 import {useAppDispatch} from '../../store/storeHooks';
 import {addItem} from '../../store/checkout';
+import {useNavigate} from 'react-router';
 
 const radioLabels = ['Category', 'Year', 'Author'];
 
 const Search = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
     const [data, setData] = useState<BookCardProps[]>([]);
 
     const onSearchClick = (value: string, filter: string) => {
@@ -41,6 +44,10 @@ const Search = () => {
         dispatch(addItem(addedBook));
     };
 
+    const onImageClick = (book: BookModel) => {
+        navigate('/book-information', {state: book});
+    };
+
     return (
         <>
             <Row className="bookCover">
@@ -49,16 +56,22 @@ const Search = () => {
             <Row className="justify-content-center align-items-center searchBox">
                 <Col>
                     <h3>
-                        <i>Search to find your new book</i>
+                        <i>Search your new book in Library</i>
                     </h3>
-
                     <SearchBar radioLabels={radioLabels} handleClick={onSearchClick} />
                 </Col>
             </Row>
             <div className="mt-4 pb-5 products-container">
-                {data?.map((book) => (
-                    <BookCard handeAddClick={onAddBook.bind(null, book)} key={book._id} {...book} />
-                ))}
+                {data?.map((book) => {
+                    const bookProps = {
+                        handeImageClick: onImageClick.bind(null, book),
+                        handeAddClick: onAddBook.bind(null, book),
+                        key: book._id,
+                        ...book,
+                    };
+
+                    return <BookCard {...bookProps} />;
+                })}
             </div>
         </>
     );

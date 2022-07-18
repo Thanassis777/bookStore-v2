@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     headers: {'Content-Type': 'application/json'},
 });
 
-export const getService = (url: string, config?: AxiosRequestConfig) =>
+export const getService = async (url: string, config?: AxiosRequestConfig) =>
     axiosInstance
         .get(url, config)
         .then((res) => Promise.resolve(res))

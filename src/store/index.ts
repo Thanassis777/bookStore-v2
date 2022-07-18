@@ -7,7 +7,6 @@ import {configureStore} from '@reduxjs/toolkit';
 const persistConfig = {
     key: 'root',
     storage: storageSession,
-    // blacklist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

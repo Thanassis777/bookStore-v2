@@ -1,0 +1,24 @@
+.book-container {
+  width: 380px;
+  text-align: center;
+
+  img {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.gap-container {
+  margin: 2rem auto;
+  inline-size: auto;
+  overflow-wrap: break-word;
+
+  h6 {
+    display: inline;
+    padding-right: 8px;
+  }
+
+  button {
+    margin: auto 8px 0 0;
+  }
+}

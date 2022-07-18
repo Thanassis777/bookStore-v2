@@ -6,6 +6,13 @@ export enum Types {
     DATE = 'date',
 }
 
+export enum ToastTypes {
+    SUCCESS,
+    ERROR,
+    INFO,
+    WARNING,
+}
+
 export interface CodeListType {
     code: string;
     label: string;

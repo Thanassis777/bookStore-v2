@@ -6,6 +6,7 @@ import CartIcon from '../components/UI/CartIcon';
 import CartDropDown from '../components/UI/CartDropDown';
 import {useAppDispatch, useAppSelector} from '../store/storeHooks';
 import {checkoutData, isOpenCart, setIsOpenCart, totalAmount} from '../store/checkout';
+import {Badge} from 'react-bootstrap';
 
 const Navigation = () => {
     const dispatch = useAppDispatch();
@@ -32,7 +33,10 @@ const Navigation = () => {
                     <Link id="login" className="nav-link" to="/login">
                         LOGIN
                     </Link>
-                    <CartIcon handleOpen={handleCartIcon} />({totalItems})
+                    <CartIcon handleOpen={handleCartIcon} />
+                    <Badge className="mx-1" pill bg="success">
+                        {totalItems}
+                    </Badge>
                     {isOpen && <CartDropDown items={booksInCart} />}
                 </div>
             </div>
