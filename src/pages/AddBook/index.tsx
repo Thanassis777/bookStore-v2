@@ -51,7 +51,7 @@ const AddBook = () => {
                                 <Row className="align-items-center">
                                     <Row>
                                         {bookValuesWithOptions.map((item) => (
-                                            <Col xs={6} key={item.id}>
+                                            <Col xs={12} sm={6} key={item.id}>
                                                 {getFormComponent(item)}
                                             </Col>
                                         ))}

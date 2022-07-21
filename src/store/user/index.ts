@@ -7,18 +7,14 @@ export interface UserState {
     user: {
         name: string;
         email: string;
+        role?: 'admin' | 'user' | null;
     };
     token: string;
-    isLoggedIn: boolean;
 }
 
 export const initialState: UserState = {
-    user: {
-        name: '',
-        email: '',
-    },
+    user: null,
     token: '',
-    isLoggedIn: false,
 };
 
 export const signInWithUser = createAsyncThunk(
@@ -48,26 +44,25 @@ export const signUpUser = createAsyncThunk(
 const user = createSlice({
     name: 'category',
     initialState,
-    reducers: {},
+    reducers: {
+        clearUser: (state) => {
+            state.user = null;
+            state.token = '';
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(signInWithUser.fulfilled, (state, action) => {
             state.user = {
                 name: action.payload.user.name,
                 email: action.payload.user.email,
+                role: action.payload.user.role,
             };
             state.token = action.payload.token;
-            state.isLoggedIn = true;
-        });
-        builder.addCase(signUpUser.fulfilled, (state, action) => {
-            state.user = {
-                name: action.payload.user.name,
-                email: action.payload.user.email,
-            };
-            state.token = action.payload.token;
-            state.isLoggedIn = true;
         });
     },
 });
+
+export const {clearUser} = user.actions;
 
 const usersReducer = (state: RootState) => state.user;
 

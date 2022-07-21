@@ -1,6 +1,10 @@
 .iconText {
-  width: 30%;
+  width: 50vw;
   margin: 0 auto;
+
+  @media screen and (max-width: 1040px) {
+    width: 65vw;
+  }
 
   input {
     box-shadow:  #020e09;
@@ -18,10 +22,10 @@
   border:  #020e09 20px none;
 
   &:hover {
-    background-color: #80001e;
+    color: white;
+    background-color: #004900;
     transition: 0.7s;
   }
-
 }
 
 .radios {
@@ -29,3 +33,14 @@
   justify-content: center;
 }
 
+.remove-filter {
+  &:hover {
+    &:after {
+      content: 'REMOVE';
+      padding-right: 5px;
+    };
+    cursor: pointer;
+    background-color: white;
+    border-radius: 10px 10px;
+  }
+}

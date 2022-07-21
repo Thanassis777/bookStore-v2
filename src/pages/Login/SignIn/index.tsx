@@ -7,20 +7,30 @@ import {signInFormValidationSchema} from '../validationSchema';
 import {useAppDispatch} from '../../../store/storeHooks';
 import {signInWithUser} from '../../../store/user';
 import {ToastContainer} from 'react-toastify';
-import ToastMessage from '../../../hocs/ToastMessage';
 import {unwrapResult} from '@reduxjs/toolkit';
 import {ToastTypes} from '../../../shared/models/ApplicationTypes';
+import LoadingSpinner from '../../../components/UI/LoadingSpinner';
+import {useState} from 'react';
+import {useNavigate} from 'react-router';
 
 const SignIn = () => {
+    const [loadSpinner, setLoadSpinner] = useState(false);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const handleSignIn = (values: SignInProps) => {
-        dispatch(signInWithUser(values))
-            .then(unwrapResult) // use 'unwrapResult' to extract the result  from either fulfilled/ rejected result
-            .then(() => {
-                notifyToast(ToastTypes.SUCCESS, 'Successfully signed in');
-            })
-            .catch((err: Error) => notifyToast(ToastTypes.ERROR, err.message));
+        setLoadSpinner(true);
+
+        setTimeout(() => {
+            dispatch(signInWithUser(values))
+                .then(unwrapResult) // use 'unwrapResult' to extract the result  from either fulfilled/ rejected result
+                .then(() => {
+                    notifyToast(ToastTypes.SUCCESS, 'Successfully signed in');
+                    navigate('/search');
+                })
+                .catch((err: Error) => notifyToast(ToastTypes.ERROR, err.message))
+                .finally(() => setLoadSpinner(false));
+        }, 2000);
     };
 
     return (
@@ -28,35 +38,36 @@ const SignIn = () => {
             title="Already have an account?"
             subtitle="Sign in with your email and password"
         >
-            <ToastMessage>
-                <Formik<SignInProps>
-                    validationSchema={signInFormValidationSchema}
-                    initialValues={initialSignInState}
-                    onSubmit={handleSignIn}
-                >
-                    {({handleSubmit}) => (
-                        <Form onSubmit={handleSubmit}>
-                            <Row className="pt-1">
-                                <Row className="flex-column">
-                                    {initialSignInForm.map((item, idx: number) => (
-                                        <Col key={item.id + 'signIn'}>{getFormComponent(item)}</Col>
-                                    ))}
-                                </Row>
-                                <Col>
-                                    <Button
-                                        type="submit"
-                                        className="mt-3"
-                                        variant="outline-primary"
-                                    >
-                                        Sign In
-                                    </Button>
-                                </Col>
+            <Formik<SignInProps>
+                validationSchema={signInFormValidationSchema}
+                initialValues={initialSignInState}
+                onSubmit={handleSignIn}
+            >
+                {({handleSubmit}) => (
+                    <Form onSubmit={handleSubmit}>
+                        <Row className="pt-1">
+                            <Row className="flex-column">
+                                {initialSignInForm.map((item, idx: number) => (
+                                    <Col key={item.id + 'signIn'}>{getFormComponent(item)}</Col>
+                                ))}
                             </Row>
-                            <ToastContainer />
-                        </Form>
-                    )}
-                </Formik>
-            </ToastMessage>
+                            <Col>
+                                <Button type="submit" className="mt-3" variant="outline-primary">
+                                    {loadSpinner && (
+                                        <LoadingSpinner
+                                            variant="primary"
+                                            className="me-2"
+                                            size="sm"
+                                        />
+                                    )}
+                                    Sign In
+                                </Button>
+                            </Col>
+                        </Row>
+                        <ToastContainer />
+                    </Form>
+                )}
+            </Formik>
         </FormWrapper>
     );
 };

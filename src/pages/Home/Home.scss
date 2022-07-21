@@ -18,7 +18,6 @@ $base-margin-divs: 5rem 3rem 0;
     margin: auto;
     line-break: strict;
     color: white;
-    font-size: 2.55rem;
     text-align: center;
   }
 }
@@ -43,6 +42,13 @@ $base-margin-divs: 5rem 3rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 0.8rem;
+
+    @media screen and (max-width: 540px) {
+      flex-basis: 100%;
+      margin: 1px auto;
+    }
+
   }
 
   #secondItem {

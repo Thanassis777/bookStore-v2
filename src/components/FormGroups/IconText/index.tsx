@@ -3,6 +3,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import './IconText.scss';
 import {ChangeEvent, useState} from 'react';
 import Form from 'react-bootstrap/Form';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 type IconTextProps = {
     handleClick: (text: string, string: string) => void;
@@ -56,6 +57,9 @@ const IconText = ({handleClick, radioLabels}: IconTextProps) => {
                         id={label + '_id'}
                     />
                 ))}
+                <div onClick={() => setSelectedFilter('')} className="remove-filter">
+                    <CloseButton />
+                </div>
             </div>
         </>
     );

@@ -12,7 +12,7 @@ const Layout = ({children}: LayoutProps) => {
                 <Header title="BookStore" />
             </div>
             {children}
-            <div id="footer" className="box" />
+            {/*<div id="footer" className="box" />*/}
         </main>
     );
 };

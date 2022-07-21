@@ -17,10 +17,10 @@ const BookInfo = () => {
         <FormWrapper>
             {book && (
                 <Row className="justify-content-center">
-                    <Col className="mt-2" xs={6}>
+                    <Col className="columns" xs={6}>
                         <ImageSection {...book} />
                     </Col>
-                    <Col xs={6}>
+                    <Col className="columns" xs={6}>
                         <BookDetails {...book} />
                     </Col>
                 </Row>

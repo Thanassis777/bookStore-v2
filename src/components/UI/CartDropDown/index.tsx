@@ -1,28 +1,19 @@
 import {Button} from 'react-bootstrap';
 import CartItem from './CartItem';
 import './CardDropDown.scss';
-import {useNavigate} from 'react-router';
 import {BookModel} from '../../../pages/AddBook/formModel';
-import {setIsOpenCart} from '../../../store/checkout';
-import {useAppDispatch} from '../../../store/storeHooks';
 import {useRef} from 'react';
 import useClickOutSideOfElement from '../../../shared/hooks/useClickOutSideOfElement';
 
 type CartDropDownProps = {
     items: BookModel[];
+    onCheckoutClick: () => void;
 };
 
-const CartDropDown = ({items}: CartDropDownProps) => {
+const CartDropDown = ({items, onCheckoutClick}: CartDropDownProps) => {
     const wrapperRef = useRef(null);
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
 
     useClickOutSideOfElement(wrapperRef);
-
-    const onCheckoutClick = () => {
-        dispatch(setIsOpenCart(false));
-        navigate('/checkout');
-    };
 
     return (
         <div ref={wrapperRef} className="cart-dropdown-container">

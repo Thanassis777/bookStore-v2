@@ -8,24 +8,31 @@ import {signUpUser} from '../../../store/user';
 import {unwrapResult} from '@reduxjs/toolkit';
 import {useAppDispatch} from '../../../store/storeHooks';
 import {ToastTypes} from '../../../shared/models/ApplicationTypes';
-import {ToastPosition} from 'react-toastify';
+import {useState} from 'react';
+import LoadingSpinner from '../../../components/UI/LoadingSpinner';
 
 const SignUp = () => {
+    const [loadSpinner, setLoadSpinner] = useState(false);
     const dispatch = useAppDispatch();
 
-    const opt = {
-        position: 'bottom-right' as ToastPosition,
-    };
-
     const handleSignUp = (values: ILogin) => {
-        dispatch(signUpUser(values))
-            .then(unwrapResult)
-            .then(() =>
-                notifyToast(ToastTypes.SUCCESS, 'You have successfully created an account!', {
-                    ...opt,
+        setLoadSpinner(true);
+
+        setTimeout(() => {
+            dispatch(signUpUser(values))
+                .then(unwrapResult)
+                .then(() => {
+                    notifyToast(
+                        ToastTypes.SUCCESS,
+                        'You have successfully created an account. You can now login'
+                    );
                 })
-            )
-            .catch((err: Error) => notifyToast(ToastTypes.SUCCESS, err.message));
+                .catch((err) => {
+                    if (err.status === 429) notifyToast(ToastTypes.WARNING, err.message);
+                    else notifyToast(ToastTypes.ERROR, err.message);
+                })
+                .finally(() => setLoadSpinner(false));
+        }, 2000);
     };
 
     return (
@@ -48,6 +55,13 @@ const SignUp = () => {
                                 </Row>
                                 <Col>
                                     <Button className="mt-3" variant="warning" type="submit">
+                                        {loadSpinner && (
+                                            <LoadingSpinner
+                                                variant="light"
+                                                className="me-2"
+                                                size="sm"
+                                            />
+                                        )}
                                         Sign Up
                                     </Button>
                                 </Col>

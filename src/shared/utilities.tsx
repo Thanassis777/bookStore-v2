@@ -6,7 +6,7 @@ import {ComponentProps} from './models/ComponentProps';
 import TextInputMultiValue from '../components/FormGroups/TextInputMultiValue';
 import DropZone from '../components/FormGroups/DropZone';
 import {postService} from '../api';
-import {Theme, toast, ToastPosition} from 'react-toastify';
+import {Theme, toast} from 'react-toastify';
 import {ToastOptions} from 'react-toastify/dist/types';
 
 export const getFormComponent = (item: ComponentProps) => {
@@ -38,14 +38,13 @@ export const uploadImage = (id: string, data: any) => {
     });
 };
 
-const toastConfig = {
-    position: 'bottom-left' as ToastPosition,
-    autoClose: 3000,
+const toastConfig: ToastOptions = {
+    position: 'bottom-left',
+    autoClose: false,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined as any,
     theme: 'colored' as Theme,
 };
 
