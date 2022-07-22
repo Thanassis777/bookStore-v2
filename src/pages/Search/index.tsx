@@ -8,6 +8,8 @@ import {BookModel} from '../AddBook/formModel';
 import {useAppDispatch} from '../../store/storeHooks';
 import {addItem} from '../../store/checkout';
 import {useNavigate} from 'react-router';
+import {ToastUtils} from '../../shared/utilities';
+import {ToastTypes} from '../../shared/models/ApplicationTypes';
 
 const radioLabels = ['Category', 'Year', 'Author'];
 
@@ -42,6 +44,9 @@ const Search = () => {
     const onAddBook = (book: BookModel) => {
         const addedBook = {...book, amount: ++book.amount};
         dispatch(addItem(addedBook));
+        ToastUtils.notifyToast(ToastTypes.INFO, 'Book added', {
+            position: 'bottom-center',
+        });
     };
 
     const onImageClick = (book: BookModel) => {

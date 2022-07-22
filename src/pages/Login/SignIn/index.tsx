@@ -1,6 +1,6 @@
 import {Form, Formik} from 'formik';
 import {Button, Col, Row} from 'react-bootstrap';
-import {getFormComponent, notifyToast} from '../../../shared/utilities';
+import {getFormComponent, ToastUtils} from '../../../shared/utilities';
 import {initialSignInForm, initialSignInState, SignInProps} from '../formModel';
 import FormWrapper from '../../../hocs/FormWrapper';
 import {signInFormValidationSchema} from '../validationSchema';
@@ -25,10 +25,10 @@ const SignIn = () => {
             dispatch(signInWithUser(values))
                 .then(unwrapResult) // use 'unwrapResult' to extract the result  from either fulfilled/ rejected result
                 .then(() => {
-                    notifyToast(ToastTypes.SUCCESS, 'Successfully signed in');
+                    ToastUtils.notifyToast(ToastTypes.SUCCESS, 'Successfully signed in');
                     navigate('/search');
                 })
-                .catch((err: Error) => notifyToast(ToastTypes.ERROR, err.message))
+                .catch((err: Error) => ToastUtils.notifyToast(ToastTypes.ERROR, err.message))
                 .finally(() => setLoadSpinner(false));
         }, 2000);
     };

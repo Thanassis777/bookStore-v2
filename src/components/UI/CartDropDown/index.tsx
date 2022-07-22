@@ -24,7 +24,7 @@ const CartDropDown = ({items, onCheckoutClick}: CartDropDownProps) => {
                     <span className="empty-message">Your cart is empty</span>
                 )}
             </div>
-            <Button onClick={onCheckoutClick}>GO TO CHECKOUT</Button>
+            <Button onClick={onCheckoutClick}>PREVIEW</Button>
         </div>
     );
 };

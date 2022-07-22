@@ -1,7 +1,7 @@
 import {Form, Formik} from 'formik';
 import {ILogin, initialSignUpForm, initialSignUpState} from '../formModel';
 import {Button, Col, Row} from 'react-bootstrap';
-import {getFormComponent, notifyToast} from '../../../shared/utilities';
+import {getFormComponent, ToastUtils} from '../../../shared/utilities';
 import FormWrapper from '../../../hocs/FormWrapper';
 import {signUpFormValidationSchema} from '../validationSchema';
 import {signUpUser} from '../../../store/user';
@@ -22,14 +22,14 @@ const SignUp = () => {
             dispatch(signUpUser(values))
                 .then(unwrapResult)
                 .then(() => {
-                    notifyToast(
+                    ToastUtils.notifyToast(
                         ToastTypes.SUCCESS,
                         'You have successfully created an account. You can now login'
                     );
                 })
                 .catch((err) => {
-                    if (err.status === 429) notifyToast(ToastTypes.WARNING, err.message);
-                    else notifyToast(ToastTypes.ERROR, err.message);
+                    if (err.status === 429) ToastUtils.notifyToast(ToastTypes.WARNING, err.message);
+                    else ToastUtils.notifyToast(ToastTypes.ERROR, err.message);
                 })
                 .finally(() => setLoadSpinner(false));
         }, 2000);

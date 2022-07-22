@@ -1,5 +1,6 @@
 import './Layout.scss';
 import Header from '../components/UI/Header/Header';
+import FooterInfo from './FooterInfo';
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -8,11 +9,13 @@ type LayoutProps = {
 const Layout = ({children}: LayoutProps) => {
     return (
         <main style={{overflow: 'hidden'}}>
-            <div className="box">
+            <div className="header-container">
                 <Header title="BookStore" />
             </div>
             {children}
-            {/*<div id="footer" className="box" />*/}
+            <div className="footer-container">
+                <FooterInfo />
+            </div>
         </main>
     );
 };

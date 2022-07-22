@@ -1,18 +1,35 @@
-
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 98px;
-  text-align: center;
-  font-size: 1.2rem;
+@mixin containerStyles {
+  //height: 98px;
   background-color: #28bf74;
   border: 2px solid #122bce;
-  border-left: 0;
-  border-right: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
 }
 
-#footer {
+.header-container {
+  display: flex;
+  height: 98px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  @include containerStyles;
+}
+
+
+.footer-container {
   margin-top: 1rem;
+  @include containerStyles;
 
+  .information {
+    margin: 50px auto;
+    height: 20vh;
+  }
+
+
+  p {
+    color: white;
+  }
 }
+
+

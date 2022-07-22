@@ -7,10 +7,10 @@
   position: relative;
 
   img {
+    width: 300px;
     cursor: pointer;
-    transform: scale(0.9);
-    height: 95%;
-    object-fit: cover;
+    height: 240px;
+    object-fit: contain;
   }
 
   .button-add {

@@ -1,6 +1,7 @@
 import {Navigate} from 'react-router';
-import {userData} from '../store/user';
+import {userToken} from '../store/user';
 import {useAppSelector} from '../store/storeHooks';
+import {JWTDecodeUtils} from '../shared/utilities';
 
 type ProtectedRouteProps = {
     redirectPath?: string;
@@ -9,13 +10,11 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute = ({children, redirectPath = '/', checkAdmin}: ProtectedRouteProps) => {
-    const user = useAppSelector(userData);
+    const token = useAppSelector(userToken);
+    const role = JWTDecodeUtils.getTokenField(token, 'role');
 
-    if (!user) {
-        return <Navigate to={redirectPath} replace />;
-    } else if (checkAdmin && user.role !== 'admin') {
-        return <Navigate to={'/'} replace />;
-    }
+    if (role === null) return <Navigate to={redirectPath} replace />;
+    if (checkAdmin && role !== 'admin') return <Navigate to={'/'} replace />;
 
     return children;
 };

@@ -3,12 +3,15 @@ import {createAsyncThunk, createSelector, createSlice} from '@reduxjs/toolkit';
 import {postService} from '../../api';
 import {ILogin, SignInProps} from '../../pages/Login/formModel';
 
+export interface UserRole {
+    role: 'admin' | 'user' | null;
+}
+
 export interface UserState {
     user: {
         name: string;
         email: string;
-        role?: 'admin' | 'user' | null;
-    };
+    } & UserRole;
     token: string;
 }
 
@@ -52,11 +55,7 @@ const user = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(signInWithUser.fulfilled, (state, action) => {
-            state.user = {
-                name: action.payload.user.name,
-                email: action.payload.user.email,
-                role: action.payload.user.role,
-            };
+            state.user = action.payload.user;
             state.token = action.payload.token;
         });
     },
