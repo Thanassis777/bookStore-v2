@@ -51,3 +51,10 @@
         grid-template-columns: repeat(1, 1fr);
     }
 }
+
+.pagination-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}

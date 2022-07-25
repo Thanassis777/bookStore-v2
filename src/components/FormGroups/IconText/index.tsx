@@ -1,37 +1,46 @@
 import {Button, FormControl} from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import './IconText.scss';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent} from 'react';
 import Form from 'react-bootstrap/Form';
 import CloseButton from 'react-bootstrap/CloseButton';
 
 type IconTextProps = {
-    handleClick: (text: string, string: string) => void;
+    setValue: (val: string) => void;
+    setFilter: (val: string) => void;
+    handleSearchButton: () => void;
     radioLabels: string[];
+    filter: string;
 };
 
-const IconText = ({handleClick, radioLabels}: IconTextProps) => {
-    const [searchText, setSearchText] = useState('');
-    const [selectedFilter, setSelectedFilter] = useState('');
-
+const IconText = ({
+    setValue,
+    setFilter,
+    radioLabels,
+    handleSearchButton,
+    filter,
+}: IconTextProps) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchText(e.target.value);
-    };
-
-    const handleSearchButton = () => {
-        handleClick(searchText, selectedFilter);
+        setValue(e.target.value);
     };
 
     const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target;
 
-        setSelectedFilter(value);
+        setFilter(value);
     };
 
     return (
         <>
             <InputGroup className="iconText">
-                <FormControl onChange={handleChange} placeholder="Search" aria-label="Search Βαr" />
+                <FormControl
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') handleSearchButton();
+                    }}
+                    onChange={handleChange}
+                    placeholder="Search"
+                    aria-label="Search Βαr"
+                />
                 <Button
                     className="buttonSearch"
                     onClick={handleSearchButton}
@@ -42,7 +51,7 @@ const IconText = ({handleClick, radioLabels}: IconTextProps) => {
                     Search
                 </Button>
             </InputGroup>
-            <div className="mt-1 radios">
+            <div className="mt-2 radios">
                 {radioLabels.map((label) => (
                     <Form.Check
                         style={{fontFamily: 'cursive'}}
@@ -50,14 +59,14 @@ const IconText = ({handleClick, radioLabels}: IconTextProps) => {
                         inline
                         label={label}
                         onChange={onChangeValue}
-                        checked={selectedFilter === label}
-                        value={label}
+                        checked={filter === label.toLowerCase()}
+                        value={label.toLowerCase()}
                         name={label + '_name'}
                         type="radio"
                         id={label + '_id'}
                     />
                 ))}
-                <div onClick={() => setSelectedFilter('')} className="remove-filter">
+                <div onClick={() => setFilter('')} className="remove-filter">
                     <CloseButton />
                 </div>
             </div>
