@@ -23,7 +23,7 @@ const Routing = () => (
                     </ProtectedRoute>
                 }
             />
-            <Route path="/book-information" element={<BookInfo />} />
+            <Route path="/book-information/:id" element={<BookInfo />} />
             <Route path="/login" element={<Login />} />
             <Route
                 path="/checkout"

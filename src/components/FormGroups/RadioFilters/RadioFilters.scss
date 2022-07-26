@@ -1,0 +1,16 @@
+.radios {
+  display: flex;
+  justify-content: center;
+}
+
+.remove-filter {
+  &:hover {
+    &:after {
+      content: 'REMOVE';
+      padding-right: 5px;
+    };
+    cursor: pointer;
+    background-color: white;
+    border-radius: 10px 10px;
+  }
+}

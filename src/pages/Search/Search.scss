@@ -20,7 +20,7 @@
 }
 
 .searchBox {
-    background-image: linear-gradient(to right,#ff7854 0,#ff5079 100%);
+    background-image: linear-gradient(to right, #93bc87 0, #466679 100%);
     background-color: #61dafb;
     background-repeat: repeat-x;
     height: 180px;
@@ -57,4 +57,34 @@
     display: flex;
     justify-content: center;
     margin: 3rem 0;
+}
+
+.iconText {
+    width: 50vw;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1040px) {
+        width: 65vw;
+    }
+
+    input {
+        box-shadow:  #020e09;
+        background-color: rgb(245 247 249);
+
+        &:focus {
+            background-color: rgb(245 247 249);
+            transition: 0.7s;
+        }
+    }
+}
+
+.buttonSearch {
+    background-color: #39a839;
+    border:  #020e09 20px none;
+
+    &:hover {
+        color: white;
+        background-color: #004900;
+        transition: 0.7s;
+    }
 }

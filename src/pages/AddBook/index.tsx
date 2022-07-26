@@ -12,6 +12,7 @@ import {useCategoriesData} from '../../store/categories';
 
 const AddBook = () => {
     const [categories, categoriesLoaded] = useCategoriesData();
+
     const navigate = useNavigate();
 
     const submitBook = (values: BookModel) => {

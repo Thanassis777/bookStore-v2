@@ -1,10 +1,14 @@
 import './Home.scss';
 import {Col, Container, Row} from 'react-bootstrap';
 import {BsBasket, BsBookFill, BsKey} from 'react-icons/bs';
+import {useCategoriesData} from '../../store/categories';
 
 const ICON_SIZE = '2.5rem';
 
 const Home = () => {
+    // load categories and save them in store
+    useCategoriesData();
+
     return (
         <Container fluid>
             <Row>
