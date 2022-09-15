@@ -11,5 +11,5 @@
         "forceConsistentCasingInFileNames": true,
         "noUnusedLocals": true
     },
-    "include": ["src", "custom.d.ts"]
+    "include": ["src", "src/custom.d.ts"]
 }

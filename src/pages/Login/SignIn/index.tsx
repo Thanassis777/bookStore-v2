@@ -52,15 +52,13 @@ const SignIn = () => {
                                 ))}
                             </Row>
                             <Col>
-                                <Button type="submit" className="mt-3" variant="outline-primary">
-                                    {loadSpinner && (
-                                        <LoadingSpinner
-                                            variant="primary"
-                                            className="me-2"
-                                            size="sm"
-                                        />
-                                    )}
-                                    Sign In
+                                <Button
+                                    type="submit"
+                                    className="d-flex mt-3"
+                                    variant="outline-primary"
+                                >
+                                    <div className="pe-2">Sign In</div>
+                                    {loadSpinner && <LoadingSpinner variant="primary" size="sm" />}
                                 </Button>
                             </Col>
                         </Row>

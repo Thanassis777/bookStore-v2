@@ -1,4 +1,3 @@
-// @ts-ignore
 import {ReactComponent as Cart} from '../../../assets/cart.svg';
 import './CartIcon.scss';
 

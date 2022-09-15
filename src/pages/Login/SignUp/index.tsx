@@ -54,15 +54,11 @@ const SignUp = () => {
                                     ))}
                                 </Row>
                                 <Col>
-                                    <Button className="mt-3" variant="warning" type="submit">
+                                    <Button className="d-flex mt-3" variant="warning" type="submit">
+                                        <div className="pe-2">Sign Up</div>
                                         {loadSpinner && (
-                                            <LoadingSpinner
-                                                variant="light"
-                                                className="me-2"
-                                                size="sm"
-                                            />
+                                            <LoadingSpinner variant="light" size="sm" />
                                         )}
-                                        Sign Up
                                     </Button>
                                 </Col>
                             </Row>

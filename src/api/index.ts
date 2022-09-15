@@ -1,4 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
+import {ToastUtils} from '../shared/utilities';
+import {ToastTypes} from '../shared/models/ApplicationTypes';
 
 const BASE_ULR = 'http://localhost:9000/';
 
@@ -7,6 +9,23 @@ const axiosInstance = axios.create({
     timeout: 5000,
     headers: {'Content-Type': 'application/json'},
 });
+
+axios.interceptors.request.use(
+    () => {},
+    (error) => {
+        Promise.reject(error);
+    }
+);
+
+axiosInstance.interceptors.response.use(
+    (res) => res,
+    (err) => {
+        if (err?.response?.status === 404) {
+            return ToastUtils.notifyToast(ToastTypes.ERROR, err.response.data.message);
+        }
+        ToastUtils.notifyToast(ToastTypes.ERROR, err.message);
+    }
+);
 
 export const getService = async (url: string, config?: AxiosRequestConfig) =>
     axiosInstance

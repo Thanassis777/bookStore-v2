@@ -42,7 +42,7 @@ export const uploadImage = (id: string, data: any) => {
 export namespace ToastUtils {
     const toastConfig: ToastOptions = {
         position: 'bottom-left',
-        autoClose: 3000,
+        autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,

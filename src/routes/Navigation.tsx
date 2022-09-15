@@ -1,4 +1,3 @@
-// @ts-ignore
 import {ReactComponent as BookLogo} from '../assets/pile-book.svg';
 import './Navigation.scss';
 import CartIcon from '../components/UI/CartIcon';
@@ -13,7 +12,7 @@ import {
 } from '../store/checkout';
 import {Badge} from 'react-bootstrap';
 import {useNavigate} from 'react-router';
-import {clearUser, userToken} from '../store/user';
+import {clearUser, userData, userToken} from '../store/user';
 import {JWTDecodeUtils, ToastUtils} from '../shared/utilities';
 import {ToastTypes} from '../shared/models/ApplicationTypes';
 import {Link, Outlet} from 'react-router-dom';
@@ -26,6 +25,7 @@ const Navigation = () => {
     const isOpen = useAppSelector(isOpenCart);
     const totalItems = useAppSelector(totalAmount);
     const token = useAppSelector(userToken);
+    const user = useAppSelector(userData);
 
     const role = JWTDecodeUtils.getTokenField(token, 'role');
 
@@ -63,7 +63,7 @@ const Navigation = () => {
                         SEARCH
                     </Link>
                     <Link id="login" onClick={handleLogOut} className="nav-link" to="/login">
-                        {role ? 'LOGOUT' : 'LOGIN'}
+                        {role ? `LOGOUT, ${user.name}` : 'LOGIN'}
                     </Link>
                     <CartIcon handleOpen={handleCartIcon} />
                     {totalItems > 0 && (

@@ -14,6 +14,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import {categoriesData} from '../../store/categories';
 import RadioFilters from '../../components/FormGroups/RadioFilters';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 export const ALL = 'all books';
 export const TITLE = 'title';
@@ -32,6 +33,8 @@ const Search = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState('00');
     const [selectedFilter, setSelectedFilter] = useState('');
@@ -39,10 +42,18 @@ const Search = () => {
     const focusRef = useRef(null);
 
     const fetchBooks = (url: string) => {
-        getService(url).then((response) => {
-            setData(response.data.results);
-            setTotalCount(response.data.totalCount);
-        });
+        setIsLoading(true);
+
+        // set intended timeout for displaying Spinner
+
+        setTimeout(() => {
+            getService(url)
+                .then((response) => {
+                    setData(response.data.results);
+                    setTotalCount(response.data.totalCount);
+                })
+                .finally(() => setIsLoading(false));
+        }, 1000);
     };
 
     useEffect(() => {
@@ -67,6 +78,9 @@ const Search = () => {
 
     const onSearchClick = () => {
         let url = '';
+
+        if (!searchText && selectedFilter !== ALL)
+            ToastUtils.notifyToast(ToastTypes.INFO, 'You should enter a value');
 
         if (selectedFilter === ALL) {
             url = '/books';
@@ -170,26 +184,34 @@ const Search = () => {
                     />
                 </Col>
             </Row>
-            <div className="mt-4 pb-5 products-container">
-                {data &&
-                    data.map((book) => {
-                        const bookProps = {
-                            handeImageClick: onImageClick.bind(null, book),
-                            handeAddClick: addBookToCart.bind(null, book),
-                            key: book._id,
-                            ...book,
-                        };
+            {isLoading ? (
+                <div className="text-center mt-4">
+                    <h4>Fetching books...</h4>
+                    <LoadingSpinner />
+                </div>
+            ) : (
+                <>
+                    <div className="mt-4 pb-5 products-container">
+                        {data.map((book) => {
+                            const bookProps = {
+                                handeImageClick: onImageClick.bind(null, book),
+                                handeAddClick: addBookToCart.bind(null, book),
+                                key: book._id,
+                                ...book,
+                            };
 
-                        return <BookCard key={book._id} {...bookProps} />;
-                    })}
-            </div>
-            <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={totalCount}
-                pageSize={PAGE_SIZE}
-                onPageChange={(page: number) => handlePageChange(page)}
-            />
+                            return <BookCard key={book._id} {...bookProps} />;
+                        })}
+                    </div>
+                    <Pagination
+                        className="pagination-bar"
+                        currentPage={currentPage}
+                        totalCount={totalCount}
+                        pageSize={PAGE_SIZE}
+                        onPageChange={(page: number) => handlePageChange(page)}
+                    />
+                </>
+            )}
         </>
     );
 };
